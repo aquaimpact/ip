@@ -9,7 +9,20 @@ public class Aegis {
                         ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝╚══════╝
                     """;
 
-        System.out.println("Hello from\n" + logo);
+
+        String welcomeMessage = """
+        ____________________________________________________________
+         Hello! I'm AEGIS
+         What can I do for you?
+        ____________________________________________________________
+        """;
+
+        String exitMessage = """
+         Bye. Hope to see you again soon!
+        ____________________________________________________________
+        """;
+        System.out.println(logo);
+        System.out.println(welcomeMessage + exitMessage);
 
     }
 }
