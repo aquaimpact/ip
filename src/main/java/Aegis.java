@@ -21,7 +21,7 @@ public class Aegis {
 
         String exitMessage = """
         ____________________________________________________________
-         Bye. Hope to see you again soon!
+         Goodbye! Thanks for using! Hope to see you again soon!
         ____________________________________________________________
         """;
 
@@ -39,8 +39,9 @@ public class Aegis {
             }
 
             System.out.println("____________________________________________________________\n" +
-                               " " + input +"\n" +
+                               " You have input: \"" + input +"\"\n" +
                                "____________________________________________________________");
         }
+        
     }
 }
