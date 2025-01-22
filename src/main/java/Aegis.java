@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Aegis {
     public static void main(String[] args) {
         String logo = """
@@ -18,11 +20,27 @@ public class Aegis {
         """;
 
         String exitMessage = """
+        ____________________________________________________________
          Bye. Hope to see you again soon!
         ____________________________________________________________
         """;
-        System.out.println(logo);
-        System.out.println(welcomeMessage + exitMessage);
 
+        Scanner sc = new Scanner(System.in);
+        String input;
+
+
+        System.out.println(logo + "\n" + welcomeMessage);
+
+        while (true) {
+            input = sc.nextLine();
+            if(input.equals("bye")) {
+                System.out.println(exitMessage);
+                break;
+            }
+
+            System.out.println("____________________________________________________________\n" +
+                               " " + input +"\n" +
+                               "____________________________________________________________");
+        }
     }
 }
