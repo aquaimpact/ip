@@ -74,15 +74,18 @@ public class Aegis {
                 System.out.println(todoItm);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________\n");
-
-            }
-//            else {
-//                System.out.println("____________________________________________________________\n" +
-//                        " You have added: \"" + input + "\"\n" +
-//                        "____________________________________________________________\n");
-//                tasks.add(new Task(input));
-//
-//            }
+            } else if (input.matches(".*\\bdeadline\\b.*")) {
+                String[] res = input.split(" /by ");
+                String taskName = res[0].substring(9).trim();
+                String by = res[1].trim();
+                Task deadlineItm = new Deadline(taskName, by);
+                tasks.add(deadlineItm);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(deadlineItm);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________\n");
+            } 
         }
         sc.close();
     }
