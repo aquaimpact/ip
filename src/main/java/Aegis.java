@@ -23,9 +23,8 @@ public class Aegis {
 
         String exitMessage = """
                 ____________________________________________________________
-                 Goodbye! Thanks for using! Hope to see you again soon!
-                ____________________________________________________________
-                """;
+                Goodbye! Thanks for using! Hope to see you again soon!
+                ____________________________________________________________""";
 
         Scanner sc = new Scanner(System.in);
         String input;
@@ -48,7 +47,7 @@ public class Aegis {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 1; i <= tasks.size(); i++) {
                     Task task = tasks.get(i - 1);
-                    System.out.println(i + ". " + task.toString());
+                    System.out.println(i + "." + task.toString());
                 }
                 System.out.println("____________________________________________________________\n");
             } else if (input.matches(".*\\bmark\\b.*")) {
