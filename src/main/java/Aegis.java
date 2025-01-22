@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Aegis {
@@ -28,6 +29,8 @@ public class Aegis {
         Scanner sc = new Scanner(System.in);
         String input;
 
+        //User setup
+        ArrayList<String> commands = new ArrayList<>();
 
         System.out.println(logo + "\n" + welcomeMessage);
 
@@ -37,10 +40,18 @@ public class Aegis {
                 System.out.println(exitMessage);
                 break;
             }
-
-            System.out.println("____________________________________________________________\n" +
-                               " You have input: \"" + input +"\"\n" +
-                               "____________________________________________________________");
+            else if(input.equals("list")) {
+                System.out.println("____________________________________________________________");
+                for(int i = 1; i <= commands.size(); i++) {
+                    System.out.println(i + ". " + commands.get(i-1));
+                }
+                System.out.println("____________________________________________________________");
+            } else {
+                System.out.println("____________________________________________________________\n" +
+                        " You have added: \"" + input + "\"\n" +
+                        "____________________________________________________________");
+                commands.add(input);
+            }
         }
         sc.close();
     }
