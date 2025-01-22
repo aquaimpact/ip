@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Aegis {
@@ -39,38 +40,49 @@ public class Aegis {
             String[] inputArray = input.split(" ");
 
             // Main Commands
-            if (inputArray[0].equals("bye")) {
+            if (input.matches(".*\\bbye\\b.*")) {
                 System.out.println(exitMessage);
                 break;
-            } else if (inputArray[0].equals("list")) {
+            } else if (input.matches(".*\\blist\\b.*")) {
                 System.out.println("____________________________________________________________");
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 1; i <= tasks.size(); i++) {
                     Task task = tasks.get(i - 1);
-                    System.out.println(i + ".[" + task.getStatusIcon() + "] " + task.getTaskName());
+                    System.out.println(i + ". " + task.toString());
                 }
                 System.out.println("____________________________________________________________\n");
-            } else if (inputArray[0].equals("mark")) {
+            } else if (input.matches(".*\\bmark\\b.*")) {
                 Task task = tasks.get(Integer.parseInt(inputArray[1]) - 1);
                 task.markAsDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[" + task.getStatusIcon() + "] " + task.getTaskName());
+                System.out.println(task);
                 System.out.println("____________________________________________________________\n");
-            } else if (inputArray[0].equals("unmark")) {
+            } else if (input.matches(".*\\bunmark\\b.*")) {
                 Task task = tasks.get(Integer.parseInt(inputArray[1]) - 1);
                 task.markAsUndone();
                 System.out.println("____________________________________________________________");
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("[" + task.getStatusIcon() + "] " + task.getTaskName());
+                System.out.println(task);
                 System.out.println("____________________________________________________________\n");
-            } else {
-                System.out.println("____________________________________________________________\n" +
-                        " You have added: \"" + input + "\"\n" +
-                        "____________________________________________________________\n");
-                tasks.add(new Task(input));
+            } else if (input.matches(".*\\btodo\\b.*")) {
+                String res = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
+                Task todoItm = new Todo(res);
+                tasks.add(todoItm);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(todoItm);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________\n");
 
             }
+//            else {
+//                System.out.println("____________________________________________________________\n" +
+//                        " You have added: \"" + input + "\"\n" +
+//                        "____________________________________________________________\n");
+//                tasks.add(new Task(input));
+//
+//            }
         }
         sc.close();
     }
