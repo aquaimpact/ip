@@ -9,10 +9,13 @@ public class Task {
     public String getTaskName() {
         return taskName;
     }
-    public String isDone() {
+    public String getStatusIcon() {
         return isComplete ? "X" : "";
     }
-    public void setComplete(boolean complete) {
-        isComplete = complete;
+    public void markAsDone() {
+        isComplete = true;
+    }
+    public void markAsUndone() {
+        isComplete = false;
     }
 }
