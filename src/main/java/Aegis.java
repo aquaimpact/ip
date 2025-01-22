@@ -42,14 +42,15 @@ public class Aegis {
             }
             else if(input.equals("list")) {
                 System.out.println("____________________________________________________________");
+                System.out.println("Here are the current list of items:");
                 for(int i = 1; i <= commands.size(); i++) {
                     System.out.println(i + ". " + commands.get(i-1));
                 }
-                System.out.println("____________________________________________________________");
+                System.out.println("____________________________________________________________\n");
             } else {
                 System.out.println("____________________________________________________________\n" +
                         " You have added: \"" + input + "\"\n" +
-                        "____________________________________________________________");
+                        "____________________________________________________________\n");
                 commands.add(input);
             }
         }
