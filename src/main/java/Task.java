@@ -18,4 +18,9 @@ public class Task {
     public void markAsUndone() {
         isComplete = false;
     }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + taskName;
+    }
 }
