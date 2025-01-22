@@ -85,7 +85,19 @@ public class Aegis {
                 System.out.println(deadlineItm);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________\n");
-            } 
+            } else if (input.matches(".*\\bevent\\b.*")) {
+                String[] res = input.split(" /from | /to ");
+                String taskName = res[0].substring(6).trim();
+                String from = res[1].trim();
+                String to = res[2].trim();
+                Task eventItm = new Event(taskName, from , to);
+                tasks.add(eventItm);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(eventItm);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________\n");
+            }
         }
         sc.close();
     }
