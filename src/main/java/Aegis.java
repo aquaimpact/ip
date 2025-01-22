@@ -53,17 +53,17 @@ public class Aegis {
             } else if (inputArray[0].equals("mark")) {
                 Task task = tasks.get(Integer.parseInt(inputArray[1]) - 1);
                 task.markAsDone();
-                System.out.println("\n____________________________________________________________");
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("    [" + task.getStatusIcon() + "] " + task.getTaskName());
                 System.out.println("____________________________________________________________");
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("[" + task.getStatusIcon() + "] " + task.getTaskName());
+                System.out.println("____________________________________________________________\n");
             } else if (inputArray[0].equals("unmark")) {
                 Task task = tasks.get(Integer.parseInt(inputArray[1]) - 1);
                 task.markAsUndone();
-                System.out.println("\n____________________________________________________________");
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("    [" + task.getStatusIcon() + "] " + task.getTaskName());
                 System.out.println("____________________________________________________________");
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("[" + task.getStatusIcon() + "] " + task.getTaskName());
+                System.out.println("____________________________________________________________\n");
             } else {
                 System.out.println("____________________________________________________________\n" +
                         " You have added: \"" + input + "\"\n" +
