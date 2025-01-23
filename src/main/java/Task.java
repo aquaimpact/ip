@@ -1,7 +1,8 @@
 public class Task {
     private String taskName;
     private boolean isComplete;
-    public Task(String taskName){
+    public Task(String taskName) throws TaskInputException {
+        if(taskName.isEmpty()) throw new TaskInputException("Task name cannot be empty");
         this.taskName = taskName;
         this.isComplete = false;
     }

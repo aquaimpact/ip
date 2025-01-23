@@ -1,5 +1,6 @@
 public class Todo extends Task{
-    public Todo(String taskName) {
+
+    public Todo(String taskName) throws TaskInputException{
         super(taskName);
     }
 
