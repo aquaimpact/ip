@@ -53,17 +53,24 @@ public class Aegis {
                 }
                 else if (input.matches(".*\\bmark\\b.*")) {
                     if(inputArray.length == 1) throw new TaskInputException("You did not specify which task to mark done!");
-                    if(tasks.isEmpty()) throw new TaskInputException("No Task Available!");
+                    if(tasks.isEmpty()) throw new TaskInputException("No task available to mark!");
                     Task task = tasks.get(Integer.parseInt(inputArray[1]) - 1);
                     task.markAsDone();
                     printBorders("Nice! I've marked this task as done:\n" + task);
                 }
                 else if (input.matches(".*\\bunmark\\b.*")) {
                     if(inputArray.length == 1) throw new TaskInputException("You did not specify which task to unmark!");
-                    if(tasks.isEmpty()) throw new TaskInputException("No Task Available!");
+                    if(tasks.isEmpty()) throw new TaskInputException("No task available to unmark!");
                     Task task = tasks.get(Integer.parseInt(inputArray[1]) - 1);
                     task.markAsUndone();
                     printBorders("OK, I've marked this task as not done yet:\n" + task);
+                }
+                else if (input.matches(".*\\bdelete\\b.*")) {
+                    if(inputArray.length == 1) throw new TaskInputException("You did not specify which task to delete!");
+                    if(tasks.isEmpty()) throw new TaskInputException("No task available to delete!");
+                    Task task = tasks.get(Integer.parseInt(inputArray[1]) - 1);
+                    tasks.remove(Integer.parseInt(inputArray[1]) - 1);
+                    printBorders("Noted. I've removed this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.");
                 }
                 else if (input.matches(".*\\btodo\\b.*")) {
                     String res = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
