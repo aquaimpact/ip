@@ -1,6 +1,18 @@
+mark 1
+unmark 1
+todo
+deadline
+event
+deadline /by
+event /from
+event /from 10pm
+event /to
+event /to 10pm
+event /from /to
 todo read book
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
 list
 mark 2
+unmark 2
 bye
