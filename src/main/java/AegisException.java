@@ -11,9 +11,7 @@ class CommandException extends AegisException {
 
     @Override
     public String toString() {
-        return "____________________________________________________________\n"
-                + "Invalid Command: " + super.getMessage()
-                + "\n____________________________________________________________\n";
+        return "Invalid Command: " + super.getMessage();
     }
 }
 
@@ -24,8 +22,6 @@ class TaskInputException extends AegisException {
 
     @Override
     public String toString() {
-        return "____________________________________________________________\n"
-                + "Invalid Task Inputs: " + super.getMessage()
-                + "\n____________________________________________________________\n";
+        return "Invalid Task Inputs: " + super.getMessage();
     }
 }

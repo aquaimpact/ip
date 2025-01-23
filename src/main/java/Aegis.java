@@ -25,26 +25,14 @@ public class Aegis {
                     ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝╚══════╝
                 """;
 
-
-        String welcomeMessage = """
-                ____________________________________________________________
-                 Hello! I'm AEGIS
-                 What can I do for you?
-                ____________________________________________________________
-                """;
-
-        String exitMessage = """
-                ____________________________________________________________
-                Goodbye! Thanks for using! Hope to see you again soon!
-                ____________________________________________________________""";
-
         Scanner sc = new Scanner(System.in);
         String input;
 
         //User setup
         ArrayList<Task> tasks = new ArrayList<>();
 
-        System.out.println(logo + "\n" + welcomeMessage);
+        System.out.println(logo);
+        printBorders("Hello! I'm AEGIS\nWhat can I do for you?");
 
         while (true) {
             input = sc.nextLine();
@@ -52,37 +40,30 @@ public class Aegis {
             try {
                 // Main Commands
                 if (input.matches(".*\\bbye\\b.*")) {
-                    System.out.println(exitMessage);
+                    printBorders("Goodbye! Thanks for using! Hope to see you again soon!");
                     break;
                 }
                 else if (input.matches(".*\\blist\\b.*")) {
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Here are the tasks in your list:");
+                    String output = "Here are the tasks in your list:";
                     for (int i = 1; i <= tasks.size(); i++) {
                         Task task = tasks.get(i - 1);
-                        System.out.println(i + "." + task.toString());
+                        output += ("\n"+ i + "." + task.toString());
                     }
-                    System.out.println("____________________________________________________________\n");
+                    printBorders(output);
                 }
                 else if (input.matches(".*\\bmark\\b.*")) {
                     if(inputArray.length == 1) throw new TaskInputException("You did not specify which task to mark done!");
                     if(tasks.isEmpty()) throw new TaskInputException("No Task Available!");
                     Task task = tasks.get(Integer.parseInt(inputArray[1]) - 1);
                     task.markAsDone();
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(task);
-                    System.out.println("____________________________________________________________\n");
+                    printBorders("Nice! I've marked this task as done:\n" + task);
                 }
                 else if (input.matches(".*\\bunmark\\b.*")) {
                     if(inputArray.length == 1) throw new TaskInputException("You did not specify which task to unmark!");
                     if(tasks.isEmpty()) throw new TaskInputException("No Task Available!");
                     Task task = tasks.get(Integer.parseInt(inputArray[1]) - 1);
                     task.markAsUndone();
-                    System.out.println("____________________________________________________________");
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(task);
-                    System.out.println("____________________________________________________________\n");
+                    printBorders("OK, I've marked this task as not done yet:\n" + task);
                 }
                 else if (input.matches(".*\\btodo\\b.*")) {
                     String res = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
@@ -111,7 +92,7 @@ public class Aegis {
                 }
                 else throw new CommandException(input);
             } catch (TaskInputException | CommandException t) {
-                System.out.println(t.toString());
+                printBorders(t.toString());
             }
         }
         sc.close();
