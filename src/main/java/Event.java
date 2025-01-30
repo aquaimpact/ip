@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
  * Represents an event task in the Aegis chatbot.
  * An event task has a task name, a start time (from), and an end time (to).
  */
-public class Event extends Task {
+public class Event extends Task implements Comparable{
     private LocalDateTime from, to;
     private DateTimeFormatter storeFormatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
     private DateTimeFormatter showFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
@@ -38,5 +38,15 @@ public class Event extends Task {
     @Override
     public String toCSV() {
         return "E||" + super.toCSV() + "||" + from.format(storeFormatter) + "||" + to.format(storeFormatter);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(o instanceof Event) {
+            return ((Event) o).to.compareTo(this.to);
+        } else if (o instanceof Deadline) {
+            return ((Deadline) o).compareTo(this.to);
+        }
+        return 0;
     }
 }

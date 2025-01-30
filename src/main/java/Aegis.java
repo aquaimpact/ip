@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -18,7 +19,7 @@ public class Aegis {
      * Enum representing the types of commands supported by the application.
      */
     public enum CommandType {
-        LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT
+        LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT, DUEDATES
     }
 
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -76,6 +77,9 @@ public class Aegis {
         }
         else if (input.matches(".*\\bevent\\b.*")) {
             return CommandType.EVENT;
+        }
+        else if (input.matches(".*\\bduedates\\b.*")) {
+            return CommandType.DUEDATES;
         }
         else throw new CommandException(input);
     }
@@ -160,6 +164,17 @@ public class Aegis {
                 Task eventItm = new Event(taskName, from, to);
                 tasks.add(eventItm);
                 printOnItemsAdd(eventItm);
+            }
+            case DUEDATES -> {
+                ArrayList<Task> tasksCopy = new ArrayList<>(tasks);
+                Collections.sort(tasksCopy);
+                String output = "Here are the upcoming duedates in your list:";
+                for (int i = 1; i <= tasksCopy.size(); i++) {
+                    Task task = tasksCopy.get(i - 1);
+                    if(task instanceof Todo) continue;
+                    output += ("\n"+ i + "." + task.toString());
+                }
+                printBorders(output);
             }
         }
         return mustExit;
