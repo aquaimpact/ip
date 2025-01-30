@@ -7,14 +7,13 @@ import java.util.Scanner;
 
 public class FileSave {
 
-    public static boolean writeToFile(String filepath, String text) throws IOException {
+    public static void writeToFile(String filepath, String text) throws IOException {
         FileWriter fw = new FileWriter(filepath);
         fw.write(text);
         fw.close();
-        return true;
     }
 
-    public static boolean writeToFile(String filepath, ArrayList<Task> task) throws IOException {
+    public static void writeToFile(String filepath, ArrayList<Task> task) throws IOException {
         FileWriter fw = new FileWriter(filepath);
         String finalStr = "";
         for(Task t: task) {
@@ -22,7 +21,6 @@ public class FileSave {
         }
         fw.write(finalStr);
         fw.close();
-        return true;
     }
 
     public static boolean appendToFile(String filepath, String text) throws IOException {
