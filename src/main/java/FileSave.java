@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,7 +32,7 @@ public class FileSave {
         return true;
     }
 
-    public static ArrayList<Task> loadTasks(String filepath) throws FileNotFoundException, TaskInputException, FileSavingException {
+    public static ArrayList<Task> loadTasks(String filepath) throws FileNotFoundException, TaskInputException, FileSavingException, DateTimeParseException {
         File f = new File(filepath);
         Scanner s = new Scanner(f);
 

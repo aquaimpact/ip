@@ -2,7 +2,7 @@
  * Represents a generic task in the Aegis chatbot.
  * A task has a name and a completion status, which can be marked as done or undone.
  */
-public class Task {
+public class Task implements Comparable{
     private String taskName;
     private boolean isComplete;
 
@@ -58,5 +58,10 @@ public class Task {
 
     public String toCSV() {
         return (isComplete ? 1 : 0) + "||" + taskName;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return -1;
     }
 }

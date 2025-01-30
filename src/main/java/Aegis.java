@@ -1,8 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -16,7 +19,7 @@ public class Aegis {
      * Enum representing the types of commands supported by the application.
      */
     public enum CommandType {
-        LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT
+        LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT, DUEDATES
     }
 
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -75,6 +78,9 @@ public class Aegis {
         else if (input.matches(".*\\bevent\\b.*")) {
             return CommandType.EVENT;
         }
+        else if (input.matches(".*\\bduedates\\b.*")) {
+            return CommandType.DUEDATES;
+        }
         else throw new CommandException(input);
     }
 
@@ -88,7 +94,7 @@ public class Aegis {
      * @return True if the program should exit, false otherwise.
      * @throws TaskInputException If the command input is invalid or incomplete.
      */
-    private static boolean handleCommand(CommandType ct, String input) throws TaskInputException {
+    private static boolean handleCommand(CommandType ct, String input) throws TaskInputException, DateTimeParseException {
         String[] inputArray = input.split(" ");
         boolean mustExit = false;
         switch (ct) {
@@ -159,6 +165,17 @@ public class Aegis {
                 tasks.add(eventItm);
                 printOnItemsAdd(eventItm);
             }
+            case DUEDATES -> {
+                ArrayList<Task> tasksCopy = new ArrayList<>(tasks);
+                Collections.sort(tasksCopy);
+                String output = "Here are the upcoming duedates in your list:";
+                for (int i = 1; i <= tasksCopy.size(); i++) {
+                    Task task = tasksCopy.get(i - 1);
+                    if(task instanceof Todo) continue;
+                    output += ("\n"+ i + "." + task.toString());
+                }
+                printBorders(output);
+            }
         }
         return mustExit;
     }
@@ -204,10 +221,12 @@ public class Aegis {
                 boolean mustExit = handleCommand(commandType, input);
                 FileSave.writeToFile(FILE_PATH, tasks);
                 if(mustExit) break;
-            } catch (TaskInputException | CommandException t) {
-                printBorders(t.toString());
+            } catch (TaskInputException | CommandException e) {
+                printBorders(e.toString());
             } catch (IOException e) {
                 printBorders(e.getMessage());
+            } catch (DateTimeParseException e) {
+                printBorders(e.getMessage() + "\nPossible Fixes:\nYou may need to change the date. E.g. 2/12/2019 1800");
             }
         }
         sc.close();
