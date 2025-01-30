@@ -8,7 +8,8 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
     private LocalDateTime by;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+    private DateTimeFormatter storeFormatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+    private DateTimeFormatter showFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
     /**
      * Constructs a Deadline object with the specified task name and due date.
      *
@@ -18,7 +19,7 @@ public class Deadline extends Task {
      */
     public Deadline(String taskName, String by) throws TaskInputException, DateTimeParseException {
         super(taskName);
-        this.by = LocalDateTime.parse(by, formatter);
+        this.by = LocalDateTime.parse(by, storeFormatter);
     }
 
     /**
@@ -29,11 +30,11 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(showFormatter) + ")";
     }
 
     @Override
     public String toCSV() {
-        return "D||" + super.toCSV() + "||" + by.format(formatter);
+        return "D||" + super.toCSV() + "||" + by.format(storeFormatter);
     }
 }

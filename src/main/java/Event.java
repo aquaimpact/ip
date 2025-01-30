@@ -8,7 +8,8 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
     private LocalDateTime from, to;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+    private DateTimeFormatter storeFormatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+    private DateTimeFormatter showFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
     /**
      * Constructs an Event object with the specified task name, start time, and end time.
      *
@@ -19,8 +20,8 @@ public class Event extends Task {
      */
     public Event(String taskName, String from, String to) throws TaskInputException, DateTimeParseException {
         super(taskName);
-        this.from = LocalDateTime.parse(from, formatter);
-        this.to = LocalDateTime.parse(to, formatter);
+        this.from = LocalDateTime.parse(from, storeFormatter);
+        this.to = LocalDateTime.parse(to, storeFormatter);
     }
 
     /**
@@ -31,11 +32,11 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(showFormatter) + " to: " + to.format(showFormatter) + ")";
     }
 
     @Override
     public String toCSV() {
-        return "E||" + super.toCSV() + "||" + from.format(formatter) + "||" + to.format(formatter);
+        return "E||" + super.toCSV() + "||" + from.format(storeFormatter) + "||" + to.format(storeFormatter);
     }
 }
