@@ -55,4 +55,8 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + taskName;
     }
+
+    public String toCSV() {
+        return (isComplete ? 1 : 0) + "||" + taskName;
+    }
 }

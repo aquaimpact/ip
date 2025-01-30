@@ -62,3 +62,12 @@ class TaskInputException extends AegisException {
         return "Invalid Task Inputs: " + super.getMessage();
     }
 }
+
+class FileSavingException extends AegisException {
+    public FileSavingException(String message) {super(message);}
+
+    @Override
+    public String toString() {
+        return "Error Saving File: " + super.getMessage();
+    }
+}

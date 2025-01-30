@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -17,6 +20,8 @@ public class Aegis {
     }
 
     private static ArrayList<Task> tasks = new ArrayList<>();
+
+    private static final String FILE_PATH = "src/../save.txt";
 
     /**
      * Prints out the text formatted with the boundary lines for users.
@@ -159,6 +164,23 @@ public class Aegis {
     }
 
     public static void main(String[] args) {
+
+        //Loading File
+        try {
+            tasks = FileSave.loadTasks(FILE_PATH);
+            printBorders("Save file found! Reuisng it...");
+        } catch (TaskInputException | FileSavingException e) {
+            printBorders(e.toString());
+        } catch (FileNotFoundException e) {
+            String createNewIndicator = "Save file not found... Creating a new file...";
+            try {
+                FileSave.writeToFile(FILE_PATH, "");
+            } catch (IOException io) {
+                printBorders(io.toString());
+            }
+            printBorders(createNewIndicator);
+        }
+
         String logo = """
                      █████╗ ███████╗ ██████╗ ██╗███████╗
                     ██╔══██╗██╔════╝██╔════╝ ██║██╔════╝
@@ -180,9 +202,12 @@ public class Aegis {
             try {
                 CommandType commandType = determineCommandType(input);
                 boolean mustExit = handleCommand(commandType, input);
+                FileSave.writeToFile(FILE_PATH, tasks);
                 if(mustExit) break;
             } catch (TaskInputException | CommandException t) {
                 printBorders(t.toString());
+            } catch (IOException e) {
+                printBorders(e.getMessage());
             }
         }
         sc.close();
