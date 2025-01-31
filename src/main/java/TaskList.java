@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class TaskList {
-    private static ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> t){
         tasks = t;
@@ -32,12 +32,14 @@ public class TaskList {
         return t;
     }
 
-    public void markTaskAsDone(int index) throws TaskInputException {
+    public Task markTaskAsDone(int index) throws TaskInputException {
         getTask(index).markAsDone();
+        return getTask(index);
     }
 
-    public void markTaskAsUndone(int index) throws TaskInputException {
+    public Task markTaskAsUndone(int index) throws TaskInputException {
         getTask(index).markAsUndone();
+        return getTask(index);
     }
 
     public  ArrayList<Task> getSortedDueDates() {
@@ -48,5 +50,9 @@ public class TaskList {
 
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    public int getSize() {
+        return tasks.size();
     }
 }

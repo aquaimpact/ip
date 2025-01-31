@@ -59,7 +59,7 @@ public class CommandParser {
      * @return True if the program should exit, false otherwise.
      * @throws TaskInputException If the command input is invalid or incomplete.
      */
-    private static boolean handleCommand(TaskList taskList, CommandType ct, String input) throws TaskInputException, DateTimeParseException {
+    private static Command handleCommand(TaskList taskList, CommandType ct, String input) throws TaskInputException, DateTimeParseException {
         String[] inputArray = input.split(" ");
         boolean mustExit = false;
         switch (ct) {
@@ -68,39 +68,16 @@ public class CommandParser {
                 mustExit = true;
             }
             case LIST -> {
-                ArrayList<Task> tasks = taskList.getTasks();
-                String output = "Here are the tasks in your list:";
-                for (int i = 1; i <= tasks.size(); i++) {
-                    Task task = tasks.get(i - 1);
-                    output += ("\n"+ i + "." + task.toString());
-                }
-                UIManager.printBorders(output);
+                return new ListCommand();
             }
             case MARK -> {
-                // Error Handling
-                if(inputArray.length == 1) throw new TaskInputException("You did not specify which task to mark done!");
-
-                //Marking the task
-                taskList.markTaskAsDone(Integer.parseInt(inputArray[1]) - 1);
-                Task t = taskList.getTask(Integer.parseInt(inputArray[1]) - 1);
-                UIManager.printBorders("Nice! I've marked this task as done:\n" + t);
+                return new MarkOrUnmarkCommand(true, Integer.parseInt(inputArray[1]) - 1);
             }
             case UNMARK -> {
-                // Error Handling
-                if(inputArray.length == 1) throw new TaskInputException("You did not specify which task to unmark!");
-
-                // Unmarking the task
-                taskList.markTaskAsUndone(Integer.parseInt(inputArray[1]) - 1);
-                Task t = taskList.getTask(Integer.parseInt(inputArray[1]) - 1);
-                UIManager.printBorders("OK, I've marked this task as not done yet:\n" + t);
+                return new MarkOrUnmarkCommand(false, Integer.parseInt(inputArray[1]) - 1);
             }
             case DELETE -> {
-                // Error Handling
-                if(inputArray.length == 1) throw new TaskInputException("You did not specify which task to delete!");
-
-                // Deleting the task
-                Task t = taskList.removeTask(Integer.parseInt(inputArray[1]) - 1);
-                UIManager.printBorders("Noted. I've removed this task:\n" + t + "\nNow you have " + taskList.getTasks().size() + " tasks in the list.");
+                return new DeleteClass(Integer.parseInt(inputArray[1]) - 1);
             }
             case TODO -> {
                 String res = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));

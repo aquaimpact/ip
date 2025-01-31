@@ -1,5 +1,5 @@
 public class UIManager {
-    public static void welcomeMessage() {
+    public void welcomeMessage() {
         String logo = """
                      █████╗ ███████╗ ██████╗ ██╗███████╗
                     ██╔══██╗██╔════╝██╔════╝ ██║██╔════╝
