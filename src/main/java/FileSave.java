@@ -9,31 +9,37 @@ import java.util.Scanner;
 
 public class FileSave {
 
-    public static void writeToFile(String filepath, String text) throws IOException {
-        FileWriter fw = new FileWriter(filepath);
+    private String filePath;
+
+    public FileSave (String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void writeToFile(String text) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
         fw.write(text);
         fw.close();
     }
 
-    public static void writeToFile(String filepath, ArrayList<Task> task) throws IOException {
-        FileWriter fw = new FileWriter(filepath);
+    public void writeToFile(TaskList taskList) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
         String finalStr = "";
-        for(Task t: task) {
+        for(Task t: taskList.getTasks()) {
             finalStr += t.toCSV() + System.lineSeparator();
         }
         fw.write(finalStr);
         fw.close();
     }
 
-    public static boolean appendToFile(String filepath, String text) throws IOException {
+    public boolean appendToFile(String filepath, String text) throws IOException {
         FileWriter fw = new FileWriter(filepath, true);
         fw.write(text);
         fw.close();
         return true;
     }
 
-    public static ArrayList<Task> loadTasks(String filepath) throws FileNotFoundException, TaskInputException, FileSavingException, DateTimeParseException {
-        File f = new File(filepath);
+    public ArrayList<Task> loadTasks() throws FileNotFoundException, TaskInputException, FileSavingException, DateTimeParseException {
+        File f = new File(filePath);
         Scanner s = new Scanner(f);
 
         ArrayList<Task> arr = new ArrayList<>();
