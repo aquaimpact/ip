@@ -4,40 +4,47 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class CommandParser {
+
+    /**
+     * Enum representing the types of commands supported by the application.
+     */
+    private enum CommandType {
+        LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT, DUEDATES
+    }
     /**
      * Determines the type of command based on the user's input
      *
      * @param  input The input string entered by the user.
-     * @return The determined {@link Aegis.CommandType}.
+     * @return The determined {@link CommandType}.
      * @throws CommandException If the command is invalid or unrecognized.
      */
-    public static Aegis.CommandType determineCommandType(String input) throws CommandException {
+    private static CommandType determineCommandType(String input) throws CommandException {
         if (input.matches(".*\\bbye\\b.*")) {
-            return Aegis.CommandType.BYE;
+            return CommandType.BYE;
         }
         else if (input.matches(".*\\blist\\b.*")) {
-            return Aegis.CommandType.LIST;
+            return CommandType.LIST;
         }
         else if (input.matches(".*\\bmark\\b.*")) {
-            return Aegis.CommandType.MARK;
+            return CommandType.MARK;
         }
         else if (input.matches(".*\\bunmark\\b.*")) {
-            return Aegis.CommandType.UNMARK;
+            return CommandType.UNMARK;
         }
         else if (input.matches(".*\\bdelete\\b.*")) {
-            return Aegis.CommandType.DELETE;
+            return CommandType.DELETE;
         }
         else if (input.matches(".*\\btodo\\b.*")) {
-            return Aegis.CommandType.TODO;
+            return CommandType.TODO;
         }
         else if (input.matches(".*\\bdeadline\\b.*")) {
-            return Aegis.CommandType.DEADLINE;
+            return CommandType.DEADLINE;
         }
         else if (input.matches(".*\\bevent\\b.*")) {
-            return Aegis.CommandType.EVENT;
+            return CommandType.EVENT;
         }
         else if (input.matches(".*\\bduedates\\b.*")) {
-            return Aegis.CommandType.DUEDATES;
+            return CommandType.DUEDATES;
         }
         else throw new CommandException(input);
     }
@@ -52,7 +59,7 @@ public class CommandParser {
      * @return True if the program should exit, false otherwise.
      * @throws TaskInputException If the command input is invalid or incomplete.
      */
-    public static boolean handleCommand(TaskList taskList, Aegis.CommandType ct, String input) throws TaskInputException, DateTimeParseException {
+    private static boolean handleCommand(TaskList taskList, CommandType ct, String input) throws TaskInputException, DateTimeParseException {
         String[] inputArray = input.split(" ");
         boolean mustExit = false;
         switch (ct) {
@@ -98,8 +105,9 @@ public class CommandParser {
             case TODO -> {
                 String res = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
                 Task todoItm = new Todo(res);
-                tasks.add(todoItm);
-                printOnItemsAdd(todoItm);
+
+                taskList.addTask(todoItm);
+                UIManager.printOnItemsAdd(todoItm, taskList.getTasks().size());
             }
             case DEADLINE -> {
                 String[] res = input.split(" /by ");
@@ -107,8 +115,9 @@ public class CommandParser {
                 String taskName = res[0].substring(8).trim();
                 String by = res[1].trim();
                 Task deadlineItm = new Deadline(taskName, by);
-                tasks.add(deadlineItm);
-                printOnItemsAdd(deadlineItm);
+
+                taskList.addTask(deadlineItm);
+                UIManager.printOnItemsAdd(deadlineItm, taskList.getTasks().size());
             }
             case EVENT -> {
                 String[] res = input.split(" /from | /to ");
@@ -117,15 +126,15 @@ public class CommandParser {
                 String from = res[1].trim();
                 String to = res[2].trim();
                 Task eventItm = new Event(taskName, from, to);
-                tasks.add(eventItm);
-                printOnItemsAdd(eventItm);
+
+                taskList.addTask(eventItm);
+                UIManager.printOnItemsAdd(eventItm, taskList.getTasks().size());
             }
             case DUEDATES -> {
-                ArrayList<Task> tasksCopy = new ArrayList<>(tasks);
-                Collections.sort(tasksCopy);
+                ArrayList<Task> sortedTasks = taskList.getSortedDueDates();
                 String output = "Here are the upcoming duedates in your list:";
-                for (int i = 1; i <= tasksCopy.size(); i++) {
-                    Task task = tasksCopy.get(i - 1);
+                for (int i = 1; i <= sortedTasks.size(); i++) {
+                    Task task = sortedTasks.get(i - 1);
                     if(task instanceof Todo) continue;
                     output += ("\n"+ i + "." + task.toString());
                 }
@@ -133,5 +142,10 @@ public class CommandParser {
             }
         }
         return mustExit;
+    }
+
+    public static boolean parseCommand (TaskList taskList, String input) throws CommandException, TaskInputException {
+        CommandType commandType = determineCommandType(input);
+        return handleCommand(taskList, commandType, input);
     }
 }
