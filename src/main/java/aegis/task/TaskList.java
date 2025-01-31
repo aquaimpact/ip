@@ -1,3 +1,7 @@
+package aegis.task;
+
+import aegis.exception.TaskInputException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 

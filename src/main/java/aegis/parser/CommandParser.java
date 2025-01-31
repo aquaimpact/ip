@@ -1,7 +1,15 @@
+package aegis.parser;
+
+import aegis.command.*;
+import aegis.exception.CommandException;
+import aegis.exception.TaskInputException;
+import aegis.task.Deadline;
+import aegis.task.Event;
+import aegis.task.Task;
+import aegis.task.Todo;
+
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class CommandParser {
 
@@ -75,7 +83,7 @@ public class CommandParser {
                 return new MarkOrUnmarkCommand(false, Integer.parseInt(inputArray[1]) - 1);
             }
             case DELETE -> {
-                return new DeleteClass(Integer.parseInt(inputArray[1]) - 1);
+                return new DeleteCommand(Integer.parseInt(inputArray[1]) - 1);
             }
             case TODO -> {
                 String res = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));

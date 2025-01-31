@@ -1,9 +1,13 @@
+package aegis.task;
+
+import aegis.exception.TaskInputException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents an event task in the Aegis chatbot.
+ * Represents an event task in the aegis.Aegis chatbot.
  * An event task has a task name, a start time (from), and an end time (to).
  */
 public class Event extends Task implements Comparable{
@@ -11,7 +15,7 @@ public class Event extends Task implements Comparable{
     private DateTimeFormatter storeFormatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
     private DateTimeFormatter showFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
     /**
-     * Constructs an Event object with the specified task name, start time, and end time.
+     * Constructs an aegis.task.Event object with the specified task name, start time, and end time.
      *
      * @param taskName The name or description of the event.
      * @param from The start time of the event.

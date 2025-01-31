@@ -1,5 +1,9 @@
+package aegis.task;
+
+import aegis.exception.TaskInputException;
+
 /**
- * Represents a generic task in the Aegis chatbot.
+ * Represents a generic task in the aegis.Aegis chatbot.
  * A task has a name and a completion status, which can be marked as done or undone.
  */
 public class Task implements Comparable{
@@ -7,7 +11,7 @@ public class Task implements Comparable{
     private boolean isComplete;
 
     /**
-     * Constructs a Task object with the specified task name.
+     * Constructs a aegis.task.Task object with the specified task name.
      * The task is initially marked as not complete.
      *
      * @param taskName The name or description of the task.
@@ -15,7 +19,7 @@ public class Task implements Comparable{
      */
     public Task(String taskName) throws TaskInputException {
         if (taskName.isEmpty()) {
-            throw new TaskInputException("Task name cannot be empty");
+            throw new TaskInputException("aegis.task.Task name cannot be empty");
         }
         this.taskName = taskName;
         this.isComplete = false;
