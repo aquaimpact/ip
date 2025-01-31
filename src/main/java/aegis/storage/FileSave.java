@@ -1,8 +1,14 @@
+import aegis.exception.FileSavingException;
+import aegis.exception.TaskInputException;
+import aegis.task.Deadline;
+import aegis.task.Event;
+import aegis.task.Task;
+import aegis.task.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -56,7 +62,7 @@ public class FileSave {
             } else if (taskData[0].equals("E")){
                 t = new Event(taskData[2], taskData[3], taskData[4]);
             } else {
-                throw new FileSavingException("Task of type: " + taskData[0] + " cannot be found!");
+                throw new FileSavingException("aegis.task.Task of type: " + taskData[0] + " cannot be found!");
             }
 
             int isMarked = Integer.parseInt(taskData[1]);

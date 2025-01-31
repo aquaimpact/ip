@@ -1,6 +1,10 @@
+package aegis.commands;
+
+import aegis.exceptions.TaskInputException;
+
 import java.io.IOException;
 
-public class AddCommand implements Command{
+public class AddCommand implements Command {
 
     private Task task;
 

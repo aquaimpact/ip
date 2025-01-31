@@ -1,3 +1,5 @@
+import aegis.exceptions.TaskInputException;
+
 /**
  * Represents a generic task in the Aegis chatbot.
  * A task has a name and a completion status, which can be marked as done or undone.

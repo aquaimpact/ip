@@ -1,3 +1,7 @@
+package aegis.commands;
+
+import aegis.exceptions.TaskInputException;
+
 import java.io.IOException;
 
 public interface Command {

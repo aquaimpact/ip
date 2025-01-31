@@ -1,6 +1,10 @@
+import aegis.commands.Command;
+import aegis.exceptions.TaskInputException;
+import aegis.ui.UIManager;
+
 import java.io.IOException;
 
-public class DeleteClass implements Command{
+public class DeleteClass implements Command {
 
     private int index;
 

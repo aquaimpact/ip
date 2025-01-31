@@ -1,3 +1,7 @@
+package aegis.commands;
+
+import aegis.exceptions.TaskInputException;
+
 public class ListCommand implements Command {
 
     /**

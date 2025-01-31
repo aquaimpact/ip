@@ -1,4 +1,9 @@
-public class ExitCommand implements Command{
+package aegis.commands;
+
+import aegis.exceptions.TaskInputException;
+import aegis.ui.UIManager;
+
+public class ExitCommand implements Command {
 
     /**
      * @param tasks

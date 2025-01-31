@@ -1,6 +1,10 @@
+package aegis.commands;
+
+import aegis.exceptions.TaskInputException;
+
 import java.io.IOException;
 
-public class MarkOrUnmarkCommand implements Command{
+public class MarkOrUnmarkCommand implements Command {
 
     private boolean isMark;
     private int index;

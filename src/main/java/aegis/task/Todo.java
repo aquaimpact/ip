@@ -1,3 +1,5 @@
+import aegis.exceptions.TaskInputException;
+
 /**
  * Represents a Todo task in the Aegis chatbot.
  * A Todo task is a simple task that does not have a deadline or a specific time frame.
