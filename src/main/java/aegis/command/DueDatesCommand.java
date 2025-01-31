@@ -1,6 +1,6 @@
-package aegis.commands;
+package aegis.command;
 
-import aegis.exceptions.TaskInputException;
+import aegis.exception.TaskInputException;
 
 public class DueDatesCommand implements Command {
 

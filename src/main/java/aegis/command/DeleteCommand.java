@@ -1,14 +1,18 @@
-import aegis.commands.Command;
-import aegis.exceptions.TaskInputException;
+package aegis.command;
+
+import aegis.exception.TaskInputException;
+import aegis.storage.FileSave;
+import aegis.task.Task;
+import aegis.task.TaskList;
 import aegis.ui.UIManager;
 
 import java.io.IOException;
 
-public class DeleteClass implements Command {
+public class DeleteCommand implements Command {
 
     private int index;
 
-    public DeleteClass(int index) {
+    public DeleteCommand(int index) {
         this.index = index;
     }
 

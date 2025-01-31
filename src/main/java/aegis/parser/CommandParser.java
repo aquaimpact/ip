@@ -1,3 +1,5 @@
+package aegis.parser;
+
 import aegis.command.*;
 import aegis.exception.CommandException;
 import aegis.exception.TaskInputException;

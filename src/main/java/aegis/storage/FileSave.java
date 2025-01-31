@@ -1,9 +1,8 @@
+package aegis.storage;
+
 import aegis.exception.FileSavingException;
 import aegis.exception.TaskInputException;
-import aegis.task.Deadline;
-import aegis.task.Event;
-import aegis.task.Task;
-import aegis.task.Todo;
+import aegis.task.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,7 +1,9 @@
-import aegis.commands.Command;
-import aegis.exceptions.CommandException;
-import aegis.exceptions.FileSavingException;
-import aegis.exceptions.TaskInputException;
+package aegis;
+
+import aegis.command.Command;
+import aegis.exception.CommandException;
+import aegis.exception.FileSavingException;
+import aegis.exception.TaskInputException;
 import aegis.ui.UIManager;
 
 import java.io.FileNotFoundException;
@@ -10,7 +12,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
- * Aegis is a task management chatbot that supports adding managing, and
+ * aegis.Aegis is a task management chatbot that supports adding managing, and
  * listing tasks. It also allows marking tasks as done or undone, deleting tasks,
  * and exiting the program.
  */

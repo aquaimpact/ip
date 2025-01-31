@@ -1,3 +1,7 @@
+package aegis.ui;
+
+import aegis.task.Task;
+
 public class UIManager {
     public static void welcomeMessage() {
         String logo = """

@@ -1,4 +1,4 @@
-package aegis.exceptions;
+package aegis.exception;
 
 public class FileSavingException extends AegisException {
     public FileSavingException(String message) {super(message);}

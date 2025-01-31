@@ -1,11 +1,13 @@
-import aegis.exceptions.TaskInputException;
+package aegis.task;
+
+import aegis.exception.TaskInputException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents a deadline task in the Aegis chatbot.
+ * Represents a deadline task in the aegis.Aegis chatbot.
  * A deadline task has a task name and a due date (by).
  */
 public class Deadline extends Task implements Comparable{
@@ -13,7 +15,7 @@ public class Deadline extends Task implements Comparable{
     private DateTimeFormatter storeFormatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
     private DateTimeFormatter showFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
     /**
-     * Constructs a Deadline object with the specified task name and due date.
+     * Constructs a aegis.task.Deadline object with the specified task name and due date.
      *
      * @param taskName The name or description of the task.
      * @param by The due date or deadline for the task.

@@ -1,8 +1,8 @@
-package aegis.exceptions;
+package aegis.exception;
 
 /**
- * A base exception class for the Aegis chatbot.
- * All custom exceptions in the Aegis chatbot extend this class.
+ * A base exception class for the aegis.Aegis chatbot.
+ * All custom exceptions in the aegis.Aegis chatbot extend this class.
  */
 public class AegisException extends Exception {
     /**

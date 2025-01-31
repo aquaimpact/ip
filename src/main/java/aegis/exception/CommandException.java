@@ -1,7 +1,7 @@
-package aegis.exceptions;
+package aegis.exception;
 
 /**
- * An exception class for handling invalid commands in the Aegis chatbot.
+ * An exception class for handling invalid commands in the aegis.Aegis chatbot.
  * This is a specific type of {@link AegisException}.
  */
 public class CommandException extends AegisException {
