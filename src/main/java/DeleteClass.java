@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class DeleteClass implements Command{
 
     private int index;
@@ -12,12 +14,13 @@ public class DeleteClass implements Command{
      * @throws TaskInputException
      */
     @Override
-    public void execute(TaskList tasks, FileSave fs) throws TaskInputException {
+    public void execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
         // Error Handling
         if(tasks.getSize() == 1) throw new TaskInputException("You did not specify which task to delete!");
 
         // Deleting the task
         Task t = tasks.removeTask(index);
+        fs.writeToFile(tasks);
         UIManager.printBorders("Noted. I've removed this task:\n" + t + "\nNow you have " + tasks.getSize() + " tasks in the list.");
     }
 

@@ -44,12 +44,13 @@ public class Aegis {
         // Printing the logo and welcome message
         UIManager.welcomeMessage();
 
-        while (true) {
+        boolean isExit = false;
+        while (!isExit) {
             input = sc.nextLine();
             try {
-                boolean isExit = CommandParser.parseCommand(tasks, input);
-                fs.writeToFile(tasks);
-                if(isExit) break;
+                Command c = CommandParser.parse(input);
+                c.execute(tasks, fs);
+                isExit = c.isExit();
             } catch (TaskInputException | CommandException e) {
                 UIManager.printBorders(e.toString());
             } catch (IOException e) {

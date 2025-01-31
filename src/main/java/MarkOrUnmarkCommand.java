@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class MarkOrUnmarkCommand implements Command{
 
     private boolean isMark;
@@ -13,7 +15,7 @@ public class MarkOrUnmarkCommand implements Command{
      * @param fs
      */
     @Override
-    public void execute(TaskList tasks, FileSave fs) throws TaskInputException {
+    public void execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
         if(this.isMark){
             // Error Handling
             if(tasks.getSize() == 1) throw new TaskInputException("You did not specify which task to mark done!");
@@ -29,6 +31,7 @@ public class MarkOrUnmarkCommand implements Command{
             Task t = tasks.markTaskAsUndone(index);
             UIManager.printBorders("OK, I've marked this task as not done yet:\n" + t);
         }
+        fs.writeToFile(tasks);
     }
 
     /**

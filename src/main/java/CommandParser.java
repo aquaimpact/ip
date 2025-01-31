@@ -54,18 +54,16 @@ public class CommandParser {
      * This method returns a boolean flag which indicates if the system
      * should get out of the loop and quit.
      *
-     * @param  ct The type of command to be executed.
      * @param  input The input string associated with the command.
      * @return True if the program should exit, false otherwise.
      * @throws TaskInputException If the command input is invalid or incomplete.
      */
-    private static Command handleCommand(TaskList taskList, CommandType ct, String input) throws TaskInputException, DateTimeParseException {
+    public static Command parse(String input) throws TaskInputException, DateTimeParseException, CommandException {
         String[] inputArray = input.split(" ");
-        boolean mustExit = false;
+        CommandType ct = determineCommandType(input);
         switch (ct) {
             case BYE -> {
-                UIManager.quitMessage();
-                mustExit = true;
+                return new ExitCommand();
             }
             case LIST -> {
                 return new ListCommand();
@@ -83,8 +81,7 @@ public class CommandParser {
                 String res = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
                 Task todoItm = new Todo(res);
 
-                taskList.addTask(todoItm);
-                UIManager.printOnItemsAdd(todoItm, taskList.getTasks().size());
+                return new AddCommand(todoItm);
             }
             case DEADLINE -> {
                 String[] res = input.split(" /by ");
@@ -93,8 +90,7 @@ public class CommandParser {
                 String by = res[1].trim();
                 Task deadlineItm = new Deadline(taskName, by);
 
-                taskList.addTask(deadlineItm);
-                UIManager.printOnItemsAdd(deadlineItm, taskList.getTasks().size());
+                return new AddCommand(deadlineItm);
             }
             case EVENT -> {
                 String[] res = input.split(" /from | /to ");
@@ -104,25 +100,12 @@ public class CommandParser {
                 String to = res[2].trim();
                 Task eventItm = new Event(taskName, from, to);
 
-                taskList.addTask(eventItm);
-                UIManager.printOnItemsAdd(eventItm, taskList.getTasks().size());
+                return new AddCommand(eventItm);
             }
             case DUEDATES -> {
-                ArrayList<Task> sortedTasks = taskList.getSortedDueDates();
-                String output = "Here are the upcoming duedates in your list:";
-                for (int i = 1; i <= sortedTasks.size(); i++) {
-                    Task task = sortedTasks.get(i - 1);
-                    if(task instanceof Todo) continue;
-                    output += ("\n"+ i + "." + task.toString());
-                }
-                UIManager.printBorders(output);
+                return new DueDatesCommand();
             }
         }
-        return mustExit;
-    }
-
-    public static boolean parseCommand (TaskList taskList, String input) throws CommandException, TaskInputException {
-        CommandType commandType = determineCommandType(input);
-        return handleCommand(taskList, commandType, input);
+        return null;
     }
 }
