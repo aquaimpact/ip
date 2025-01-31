@@ -1,12 +1,12 @@
 package aegis.command;
 
+import java.io.IOException;
+
 import aegis.exception.TaskInputException;
 import aegis.storage.FileSave;
 import aegis.task.Task;
 import aegis.task.TaskList;
 import aegis.ui.UIManager;
-
-import java.io.IOException;
 
 public class AddCommand implements Command {
 
