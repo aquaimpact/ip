@@ -7,6 +7,7 @@ import aegis.exception.TaskInputException;
  * A task has a name and a completion status, which can be marked as done or undone.
  */
 public class Task implements Comparable<Task> {
+
     private String taskName;
     private boolean isComplete;
 
