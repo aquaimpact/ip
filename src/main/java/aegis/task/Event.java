@@ -40,7 +40,8 @@ public class Event extends Task implements Comparable<Task> {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(showFormatter) + " to: " + to.format(showFormatter) + ")";
+        return "[E]" + super.toString()
+                + " (from: " + from.format(showFormatter) + " to: " + to.format(showFormatter) + ")";
     }
 
     /**

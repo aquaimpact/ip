@@ -43,7 +43,8 @@ public class DeleteCommand implements Command {
         // Deleting the task
         Task t = tasks.removeTask(index);
         fs.writeToFile(tasks);
-        UIManager.printBorders("Noted. I've removed this task:\n" + t + "\nNow you have " + tasks.getSize() + " tasks in the list.");
+        UIManager.printBorders("Noted. I've removed this task:\n" + t
+                + "\nNow you have " + tasks.getSize() + " tasks in the list.");
     }
 
     /**

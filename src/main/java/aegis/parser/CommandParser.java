@@ -74,60 +74,60 @@ public class CommandParser {
         CommandType ct = determineCommandType(input);
 
         switch (ct) {
-            case BYE:
-                return new ExitCommand();
+        case BYE:
+            return new ExitCommand();
 
-            case LIST:
-                return new ListCommand();
+        case LIST:
+            return new ListCommand();
 
-            case MARK:
-                if (inputArray.length == 1) {
-                    throw new TaskInputException("You did not specify which task to mark done!");
-                }
-                return new MarkOrUnmarkCommand(true, Integer.parseInt(inputArray[1]) - 1);
+        case MARK:
+            if (inputArray.length == 1) {
+                throw new TaskInputException("You did not specify which task to mark done!");
+            }
+            return new MarkOrUnmarkCommand(true, Integer.parseInt(inputArray[1]) - 1);
 
-            case UNMARK:
-                if (inputArray.length == 1) {
-                    throw new TaskInputException("You did not specify which task to unmark!");
-                }
-                return new MarkOrUnmarkCommand(false, Integer.parseInt(inputArray[1]) - 1);
+        case UNMARK:
+            if (inputArray.length == 1) {
+                throw new TaskInputException("You did not specify which task to unmark!");
+            }
+            return new MarkOrUnmarkCommand(false, Integer.parseInt(inputArray[1]) - 1);
 
-            case DELETE:
-                if (inputArray.length == 1) {
-                    throw new TaskInputException("You did not specify which task to delete!");
-                }
-                return new DeleteCommand(Integer.parseInt(inputArray[1]) - 1);
+        case DELETE:
+            if (inputArray.length == 1) {
+                throw new TaskInputException("You did not specify which task to delete!");
+            }
+            return new DeleteCommand(Integer.parseInt(inputArray[1]) - 1);
 
-            case TODO:
-                String todoDescription = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
-                Task todoItem = new Todo(todoDescription);
-                return new AddCommand(todoItem);
-            case DEADLINE:
-                String[] deadlineParts = input.split(" /by ");
-                if (deadlineParts.length < 2) {
-                    throw new TaskInputException("You did not specify a by date!");
-                }
-                String deadlineDescription = deadlineParts[0].substring(8).trim();
-                String deadlineDate = deadlineParts[1].trim();
-                Task deadlineItem = new Deadline(deadlineDescription, deadlineDate);
-                return new AddCommand(deadlineItem);
+        case TODO:
+            String todoDescription = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
+            Task todoItem = new Todo(todoDescription);
+            return new AddCommand(todoItem);
+        case DEADLINE:
+            String[] deadlineParts = input.split(" /by ");
+            if (deadlineParts.length < 2) {
+                throw new TaskInputException("You did not specify a by date!");
+            }
+            String deadlineDescription = deadlineParts[0].substring(8).trim();
+            String deadlineDate = deadlineParts[1].trim();
+            Task deadlineItem = new Deadline(deadlineDescription, deadlineDate);
+            return new AddCommand(deadlineItem);
 
-            case EVENT:
-                String[] eventParts = input.split(" /from | /to ");
-                if (eventParts.length < 3) {
-                    throw new TaskInputException("You did not specify a from or to date!");
-                }
-                String eventDescription = eventParts[0].substring(5).trim();
-                String eventFrom = eventParts[1].trim();
-                String eventTo = eventParts[2].trim();
-                Task eventItem = new Event(eventDescription, eventFrom, eventTo);
-                return new AddCommand(eventItem);
+        case EVENT:
+            String[] eventParts = input.split(" /from | /to ");
+            if (eventParts.length < 3) {
+                throw new TaskInputException("You did not specify a from or to date!");
+            }
+            String eventDescription = eventParts[0].substring(5).trim();
+            String eventFrom = eventParts[1].trim();
+            String eventTo = eventParts[2].trim();
+            Task eventItem = new Event(eventDescription, eventFrom, eventTo);
+            return new AddCommand(eventItem);
 
-            case DUEDATES:
-                return new DueDatesCommand();
+        case DUEDATES:
+            return new DueDatesCommand();
 
-            default:
-                throw new CommandException("Unrecognized command: " + input);
+        default:
+            throw new CommandException("Unrecognized command: " + input);
         }
     }
 }

@@ -1,10 +1,10 @@
 package aegis.task;
 
-import aegis.exception.TaskInputException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import aegis.exception.TaskInputException;
 
 /**
  * Represents a deadline task in the aegis.Aegis chatbot.
