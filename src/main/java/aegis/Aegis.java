@@ -70,6 +70,6 @@ public class Aegis {
 
 
     public static void main(String[] args) {
-        new Aegis("src/../save.txt").run();
+        new Aegis("./save.txt").run();
     }
 }

@@ -39,7 +39,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "aegis.jar"
+    archiveBaseName = "aegis"
     archiveClassifier = null
 }
 
