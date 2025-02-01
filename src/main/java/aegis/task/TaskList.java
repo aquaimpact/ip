@@ -1,9 +1,9 @@
 package aegis.task;
 
-import aegis.exception.TaskInputException;
-
 import java.util.ArrayList;
 import java.util.Collections;
+
+import aegis.exception.TaskInputException;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -21,7 +21,7 @@ public class TaskList {
     }
 
     public Task getTask(int index) throws TaskInputException {
-        if(tasks.isEmpty()) {
+        if (tasks.isEmpty()) {
             throw new TaskInputException("No task available!");
         } else if (index < 0 || index >= tasks.size()) {
             throw new TaskInputException("Invalid task index!");

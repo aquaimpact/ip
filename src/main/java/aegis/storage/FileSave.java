@@ -1,9 +1,5 @@
 package aegis.storage;
 
-import aegis.exception.FileSavingException;
-import aegis.exception.TaskInputException;
-import aegis.task.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,6 +7,15 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import aegis.exception.FileSavingException;
+import aegis.exception.TaskInputException;
+import aegis.task.Deadline;
+import aegis.task.Event;
+import aegis.task.Task;
+import aegis.task.TaskList;
+import aegis.task.Todo;
+
 
 public class FileSave {
 
