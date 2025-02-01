@@ -1,12 +1,12 @@
 package aegis.exception;
 
 /**
- * An exception class for handling invalid or incomplete task inputs in the aegis.Aegis chatbot.
+ * An exception class for handling invalid or incomplete task inputs in the Aegis chatbot.
  * This is a specific type of {@link AegisException}.
  */
 public class TaskInputException extends AegisException {
     /**
-     * Constructs a aegis.exceptions.TaskInputException with the specified error message.
+     * Constructs a {@code TaskInputException} with the specified error message.
      *
      * @param message The error message.
      */
@@ -21,6 +21,6 @@ public class TaskInputException extends AegisException {
      */
     @Override
     public String toString() {
-        return "Invalid aegis.task.Task Inputs: " + super.getMessage();
+        return "Invalid Task Inputs: " + super.getMessage();
     }
 }

@@ -1,53 +1,62 @@
 package aegis.command;
 
+import java.io.IOException;
+
 import aegis.exception.TaskInputException;
 import aegis.storage.FileSave;
 import aegis.task.Task;
 import aegis.task.TaskList;
 import aegis.ui.UIManager;
 
-import java.io.IOException;
-
+/**
+ * Represents a command that either marks or unmarks a task as done.
+ */
 public class MarkOrUnmarkCommand implements Command {
 
-    private boolean isMark;
-    private int index;
+    private final boolean isMark;
+    private final int index;
 
+    /**
+     * Constructs a command to mark or unmark a task.
+     *
+     * @param isMark {@code true} to mark the task as done, {@code false} to unmark it.
+     * @param index  The index of the task in the task list.
+     */
     public MarkOrUnmarkCommand(boolean isMark, int index) {
         this.isMark = isMark;
         this.index = index;
     }
 
     /**
-     * @param tasks
-     * @param fs
+     * Executes the command to mark or unmark a task.
+     *
+     * @param tasks The task list containing the user's tasks.
+     * @param fs    The file storage handler to save changes.
+     * @throws TaskInputException If the task list is empty or the index is out of bounds.
+     * @throws IOException        If an error occurs while saving to the file.
      */
     @Override
     public void execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
-        if (this.isMark) {
-            // Error Handling
-            if (tasks.getSize() == 0) {
-                throw new TaskInputException("No task available to mark!");
-            }
-
-            //Marking the task
-            Task t = tasks.markTaskAsDone(index);
-            UIManager.printBorders("Nice! I've marked this task as done:\n" + t);
-        } else {
-            // Error Handling
-            if (tasks.getSize() == 0) {
-                throw new TaskInputException("No task available to unmark!");
-            }
-
-            // Unmarking the task
-            Task t = tasks.markTaskAsUndone(index);
-            UIManager.printBorders("OK, I've marked this task as not done yet:\n" + t);
+        if (tasks.getSize() == 0) {
+            throw new TaskInputException("No tasks available to modify!");
         }
+
+        Task task;
+        if (isMark) {
+            task = tasks.markTaskAsDone(index);
+            UIManager.printBorders("Nice! I've marked this task as done:\n" + task);
+        } else {
+            task = tasks.markTaskAsUndone(index);
+            UIManager.printBorders("OK, I've marked this task as not done yet:\n" + task);
+        }
+
         fs.writeToFile(tasks);
     }
 
     /**
-     * @return
+     * Indicates that this command does not cause the program to exit.
+     *
+     * @return {@code false}, signaling that the application should continue running.
      */
     @Override
     public boolean isExit() {

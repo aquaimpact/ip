@@ -1,5 +1,10 @@
 package aegis;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
+
 import aegis.command.Command;
 import aegis.exception.CommandException;
 import aegis.exception.FileSavingException;
@@ -9,26 +14,28 @@ import aegis.storage.FileSave;
 import aegis.task.TaskList;
 import aegis.ui.UIManager;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-
 /**
- * aegis.Aegis is a task management chatbot that supports adding managing, and
- * listing tasks. It also allows marking tasks as done or undone, deleting tasks,
- * and exiting the program.
+ * The Aegis class represents the task management chatbot in the Aegis system.
+ * It is responsible for managing tasks, parsing user input, executing commands,
+ * and interacting with a storage file. The chatbot supports adding, managing,
+ * listing tasks, marking tasks as done or undone, deleting tasks, and exiting the program.
  */
 public class Aegis {
 
     private TaskList tasks;
     private FileSave fs;
 
+    /**
+     * Constructs an Aegis object with the specified file path for task storage.
+     * If the file exists, it loads tasks from the file; otherwise, it creates a new file.
+     *
+     * @param filePath The path to the file where tasks are saved.
+     */
     public Aegis(String filePath) {
         fs = new FileSave(filePath);
         try {
             tasks = new TaskList(fs.loadTasks());
-            UIManager.printBorders("Save file found! Reuisng it...");
+            UIManager.printBorders("Save file found! Reusing it...");
         } catch (TaskInputException | FileSavingException e) {
             UIManager.printBorders(e.toString());
         } catch (FileNotFoundException e) {
@@ -43,6 +50,10 @@ public class Aegis {
         }
     }
 
+    /**
+     * Runs the chatbot, handling user input, parsing commands, and executing tasks.
+     * The chatbot will continue to run until the exit command is triggered.
+     */
     public void run() {
         Scanner sc = new Scanner(System.in);
         String input;
@@ -62,13 +73,19 @@ public class Aegis {
             } catch (IOException e) {
                 UIManager.printBorders(e.getMessage());
             } catch (DateTimeParseException e) {
-                UIManager.printBorders(e.getMessage() + "\nPossible Fixes:\nYou may need to change the date. E.g. 2/12/2019 1800");
+                UIManager.printBorders(e.getMessage() + "\nPossible Fixes:"
+                        + "\nYou may need to change the date. E.g. 2/12/2019 1800");
             }
         }
         sc.close();
     }
 
-
+    /**
+     * The main method that starts the Aegis chatbot. It creates an Aegis object
+     * with a specified file path and runs the chatbot.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         new Aegis("./save.txt").run();
     }

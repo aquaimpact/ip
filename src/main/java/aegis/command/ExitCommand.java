@@ -5,12 +5,19 @@ import aegis.storage.FileSave;
 import aegis.task.TaskList;
 import aegis.ui.UIManager;
 
+/**
+ * Represents a command that terminates the application gracefully.
+ */
 public class ExitCommand implements Command {
 
     /**
-     * @param tasks
-     * @param fs
-     * @throws TaskInputException
+     * Displays a farewell message and prepares the program to exit.
+     * <p>
+     * This command does not modify the task list or file storage.
+     *
+     * @param tasks The task list (not used in this command).
+     * @param fs    The file storage handler (not used in this command).
+     * @throws TaskInputException This command does not throw exceptions.
      */
     @Override
     public void execute(TaskList tasks, FileSave fs) throws TaskInputException {
@@ -18,7 +25,9 @@ public class ExitCommand implements Command {
     }
 
     /**
-     * @return
+     * Indicates that this command causes the program to exit.
+     *
+     * @return {@code true}, signaling that the application should terminate.
      */
     @Override
     public boolean isExit() {

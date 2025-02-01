@@ -6,12 +6,12 @@ import aegis.exception.TaskInputException;
  * Represents a generic task in the aegis.Aegis chatbot.
  * A task has a name and a completion status, which can be marked as done or undone.
  */
-public class Task implements Comparable{
+public class Task implements Comparable<Task> {
     private String taskName;
     private boolean isComplete;
 
     /**
-     * Constructs a aegis.task.Task object with the specified task name.
+     * Constructs a Task object with the specified task name.
      * The task is initially marked as not complete.
      *
      * @param taskName The name or description of the task.
@@ -19,7 +19,7 @@ public class Task implements Comparable{
      */
     public Task(String taskName) throws TaskInputException {
         if (taskName.isEmpty()) {
-            throw new TaskInputException("aegis.task.Task name cannot be empty");
+            throw new TaskInputException("Task name cannot be empty");
         }
         this.taskName = taskName;
         this.isComplete = false;
@@ -60,16 +60,34 @@ public class Task implements Comparable{
         return "[" + getStatusIcon() + "] " + taskName;
     }
 
+    /**
+     * Converts the task to a CSV-compatible string format.
+     * The format includes the completion status and the task name.
+     *
+     * @return A CSV-compatible string representing the task.
+     */
     public String toCsv() {
         return (isComplete ? 1 : 0) + "||" + taskName;
     }
 
+    /**
+     * Gets the name of the task.
+     *
+     * @return The task's name.
+     */
     public String getTaskName() {
         return this.taskName;
     }
 
+    /**
+     * Compares this task with another task.
+     * The comparison logic is not defined here (returns -1).
+     *
+     * @param o The object to compare this task with.
+     * @return An integer result of the comparison (currently always returns -1).
+     */
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(Task o) {
         return -1;
     }
 }
