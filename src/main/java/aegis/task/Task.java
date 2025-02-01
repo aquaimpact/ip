@@ -6,7 +6,7 @@ import aegis.exception.TaskInputException;
  * Represents a generic task in the aegis.Aegis chatbot.
  * A task has a name and a completion status, which can be marked as done or undone.
  */
-public class Task implements Comparable{
+public class Task implements Comparable {
     private String taskName;
     private boolean isComplete;
 
