@@ -1,12 +1,12 @@
 package aegis.exception;
 
 /**
- * An exception class for handling invalid commands in the aegis.Aegis chatbot.
+ * An exception class for handling invalid commands in the Aegis chatbot.
  * This is a specific type of {@link AegisException}.
  */
 public class CommandException extends AegisException {
     /**
-     * Constructs a aegis.exceptions.CommandException with the specified error message.
+     * Constructs a {@code CommandException} with the specified error message.
      *
      * @param message The error message.
      */
@@ -21,6 +21,6 @@ public class CommandException extends AegisException {
      */
     @Override
     public String toString() {
-        return "Invalid aegis.commands.Command: " + super.getMessage();
+        return "Invalid Command: " + super.getMessage();
     }
 }
