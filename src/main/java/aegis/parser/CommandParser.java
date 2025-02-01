@@ -29,32 +29,25 @@ public class CommandParser {
     private static CommandType determineCommandType(String input) throws CommandException {
         if (input.matches(".*\\bbye\\b.*")) {
             return CommandType.BYE;
-        }
-        else if (input.matches(".*\\blist\\b.*")) {
+        } else if (input.matches(".*\\blist\\b.*")) {
             return CommandType.LIST;
-        }
-        else if (input.matches(".*\\bmark\\b.*")) {
+        } else if (input.matches(".*\\bmark\\b.*")) {
             return CommandType.MARK;
-        }
-        else if (input.matches(".*\\bunmark\\b.*")) {
+        } else if (input.matches(".*\\bunmark\\b.*")) {
             return CommandType.UNMARK;
-        }
-        else if (input.matches(".*\\bdelete\\b.*")) {
+        } else if (input.matches(".*\\bdelete\\b.*")) {
             return CommandType.DELETE;
-        }
-        else if (input.matches(".*\\btodo\\b.*")) {
+        } else if (input.matches(".*\\btodo\\b.*")) {
             return CommandType.TODO;
-        }
-        else if (input.matches(".*\\bdeadline\\b.*")) {
+        } else if (input.matches(".*\\bdeadline\\b.*")) {
             return CommandType.DEADLINE;
-        }
-        else if (input.matches(".*\\bevent\\b.*")) {
+        } else if (input.matches(".*\\bevent\\b.*")) {
             return CommandType.EVENT;
-        }
-        else if (input.matches(".*\\bduedates\\b.*")) {
+        } else if (input.matches(".*\\bduedates\\b.*")) {
             return CommandType.DUEDATES;
+        } else {
+            throw new CommandException(input);
         }
-        else throw new CommandException(input);
     }
 
     /**
@@ -70,50 +63,71 @@ public class CommandParser {
         String[] inputArray = input.split(" ");
         CommandType ct = determineCommandType(input);
         switch (ct) {
-            case BYE -> {
-                return new ExitCommand();
-            }
-            case LIST -> {
-                return new ListCommand();
-            }
-            case MARK -> {
-                return new MarkOrUnmarkCommand(true, Integer.parseInt(inputArray[1]) - 1);
-            }
-            case UNMARK -> {
-                return new MarkOrUnmarkCommand(false, Integer.parseInt(inputArray[1]) - 1);
-            }
-            case DELETE -> {
-                return new DeleteCommand(Integer.parseInt(inputArray[1]) - 1);
-            }
-            case TODO -> {
-                String res = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
-                Task todoItm = new Todo(res);
-
-                return new AddCommand(todoItm);
-            }
-            case DEADLINE -> {
-                String[] res = input.split(" /by ");
-                if(res.length < 2) throw new TaskInputException("You did not specify a by date!"); // Error Handling
-                String taskName = res[0].substring(8).trim();
-                String by = res[1].trim();
-                Task deadlineItm = new Deadline(taskName, by);
-
-                return new AddCommand(deadlineItm);
-            }
-            case EVENT -> {
-                String[] res = input.split(" /from | /to ");
-                if(res.length < 3) throw new TaskInputException("You did not specify a from or to date!"); // Error Handling
-                String taskName = res[0].substring(5).trim();
-                String from = res[1].trim();
-                String to = res[2].trim();
-                Task eventItm = new Event(taskName, from, to);
-
-                return new AddCommand(eventItm);
-            }
-            case DUEDATES -> {
-                return new DueDatesCommand();
-            }
+        case BYE -> {
+            return new ExitCommand();
         }
-        return null;
+        case LIST -> {
+            return new ListCommand();
+        }
+        case MARK -> {
+            // Error Handling
+            if (inputArray.length == 1) {
+                throw new TaskInputException("You did not specify which task to mark done!");
+            }
+
+            return new MarkOrUnmarkCommand(true, Integer.parseInt(inputArray[1]) - 1);
+        }
+        case UNMARK -> {
+            // Error Handling
+            if (inputArray.length == 1) {
+                throw new TaskInputException("You did not specify which task to unmark!");
+            }
+
+            return new MarkOrUnmarkCommand(false, Integer.parseInt(inputArray[1]) - 1);
+        }
+        case DELETE -> {
+            // Error Handling
+            if (inputArray.length == 1) {
+                throw new TaskInputException("You did not specify which task to delete!");
+            }
+
+            return new DeleteCommand(Integer.parseInt(inputArray[1]) - 1);
+        }
+        case TODO -> {
+            String res = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
+            Task todoItm = new Todo(res);
+
+            return new AddCommand(todoItm);
+        }
+        case DEADLINE -> {
+            String[] res = input.split(" /by ");
+            if (res.length < 2) {
+                throw new TaskInputException("You did not specify a by date!"); // Error Handling
+            }
+            String taskName = res[0].substring(8).trim();
+            String by = res[1].trim();
+            Task deadlineItm = new Deadline(taskName, by);
+
+            return new AddCommand(deadlineItm);
+        }
+        case EVENT -> {
+            String[] res = input.split(" /from | /to ");
+            if (res.length < 3) {
+                throw new TaskInputException("You did not specify a from or to date!"); // Error Handling
+            }
+            String taskName = res[0].substring(5).trim();
+            String from = res[1].trim();
+            String to = res[2].trim();
+            Task eventItm = new Event(taskName, from, to);
+
+            return new AddCommand(eventItm);
+        }
+        case DUEDATES -> {
+            return new DueDatesCommand();
+        }
+        default -> {
+            return null;
+        }
+        }
     }
 }

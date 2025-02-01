@@ -16,7 +16,7 @@ public class FileSave {
 
     private String filePath;
 
-    public FileSave (String filePath) {
+    public FileSave(String filePath) {
         this.filePath = filePath;
     }
 
@@ -29,8 +29,8 @@ public class FileSave {
     public void writeToFile(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         String finalStr = "";
-        for(Task t: taskList.getTasks()) {
-            finalStr += t.toCSV() + System.lineSeparator();
+        for (Task t: taskList.getTasks()) {
+            finalStr += t.toCsv() + System.lineSeparator();
         }
         fw.write(finalStr);
         fw.close();
@@ -49,24 +49,30 @@ public class FileSave {
 
         ArrayList<Task> arr = new ArrayList<>();
 
-        while(s.hasNext()){
+        while (s.hasNext()) {
             String[] taskData = s.nextLine().split("\\|\\|");
 
-            if(taskData.length == 1) throw new FileSavingException("Cannot load task! Possibly wrong file format?");
+            if (taskData.length == 1) {
+                throw new FileSavingException("Cannot load task! Possibly wrong file format?");
+            }
+
             Task t;
             if (taskData[0].equals("T")) {
                 t = new Todo(taskData[2]);
             } else if (taskData[0].equals("D")) {
                 t = new Deadline(taskData[2], taskData[3]);
-            } else if (taskData[0].equals("E")){
+            } else if (taskData[0].equals("E")) {
                 t = new Event(taskData[2], taskData[3], taskData[4]);
             } else {
                 throw new FileSavingException("aegis.task.Task of type: " + taskData[0] + " cannot be found!");
             }
 
             int isMarked = Integer.parseInt(taskData[1]);
-            if (isMarked == 1) t.markAsDone();
-            else t.markAsUndone();
+            if (isMarked == 1) {
+                t.markAsDone();
+            } else {
+                t.markAsUndone();
+            }
 
             arr.add(t);
         }

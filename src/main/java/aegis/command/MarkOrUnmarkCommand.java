@@ -24,16 +24,20 @@ public class MarkOrUnmarkCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
-        if(this.isMark){
+        if (this.isMark) {
             // Error Handling
-            if(tasks.getSize() == 1) throw new TaskInputException("You did not specify which task to mark done!");
+            if (tasks.getSize() == 0) {
+                throw new TaskInputException("No task available to mark!");
+            }
 
             //Marking the task
             Task t = tasks.markTaskAsDone(index);
             UIManager.printBorders("Nice! I've marked this task as done:\n" + t);
         } else {
             // Error Handling
-            if(tasks.getSize() == 1) throw new TaskInputException("You did not specify which task to unmark!");
+            if (tasks.getSize() == 0) {
+                throw new TaskInputException("No task available to unmark!");
+            }
 
             // Unmarking the task
             Task t = tasks.markTaskAsUndone(index);

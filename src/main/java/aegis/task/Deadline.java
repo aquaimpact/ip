@@ -38,8 +38,8 @@ public class Deadline extends Task implements Comparable{
     }
 
     @Override
-    public String toCSV() {
-        return "D||" + super.toCSV() + "||" + by.format(storeFormatter);
+    public String toCsv() {
+        return "D||" + super.toCsv() + "||" + by.format(storeFormatter);
     }
 
     @Override

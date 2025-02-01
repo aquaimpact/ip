@@ -60,8 +60,12 @@ public class Task implements Comparable{
         return "[" + getStatusIcon() + "] " + taskName;
     }
 
-    public String toCSV() {
+    public String toCsv() {
         return (isComplete ? 1 : 0) + "||" + taskName;
+    }
+
+    public String getTaskName() {
+        return this.taskName;
     }
 
     @Override

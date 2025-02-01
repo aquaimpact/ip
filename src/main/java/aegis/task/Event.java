@@ -40,8 +40,8 @@ public class Event extends Task implements Comparable{
     }
 
     @Override
-    public String toCSV() {
-        return "E||" + super.toCSV() + "||" + from.format(storeFormatter) + "||" + to.format(storeFormatter);
+    public String toCsv() {
+        return "E||" + super.toCsv() + "||" + from.format(storeFormatter) + "||" + to.format(storeFormatter);
     }
 
     @Override

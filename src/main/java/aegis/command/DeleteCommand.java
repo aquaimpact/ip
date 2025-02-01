@@ -23,8 +23,9 @@ public class DeleteCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
-        // Error Handling
-        if(tasks.getSize() == 1) throw new TaskInputException("You did not specify which task to delete!");
+        if (tasks.getSize() == 0) {
+            throw new TaskInputException("No task available to delete!");
+        }
 
         // Deleting the task
         Task t = tasks.removeTask(index);
