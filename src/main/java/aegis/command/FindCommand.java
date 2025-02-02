@@ -8,19 +8,31 @@ import aegis.task.Task;
 import aegis.task.TaskList;
 import aegis.ui.UIManager;
 
-public class FindCommand implements Command{
+/**
+ * Represents a command to search for tasks containing a specific keyword.
+ * The search is case-insensitive and matches tasks whose names include the given search string.
+ */
+public class FindCommand implements Command {
 
     private String searchStr;
 
+    /**
+     * Constructs a {@code FindCommand} with the given search string.
+     *
+     * @param searchStr The keyword used to search for tasks.
+     */
     public FindCommand(String searchStr) {
         this.searchStr = searchStr;
     }
 
     /**
-     * @param tasks
-     * @param fs
-     * @throws TaskInputException
-     * @throws IOException
+     * Executes the find command by searching for tasks that contain the search string.
+     * Displays the matching tasks in a formatted list.
+     *
+     * @param tasks The task list to search through.
+     * @param fs The file storage system (not used in this command).
+     * @throws TaskInputException If an invalid task operation occurs.
+     * @throws IOException If an error occurs while accessing storage.
      */
     @Override
     public void execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
@@ -35,7 +47,9 @@ public class FindCommand implements Command{
     }
 
     /**
-     * @return
+     * Indicates whether this command causes the program to exit.
+     *
+     * @return {@code false} since the find command does not terminate the program.
      */
     @Override
     public boolean isExit() {
