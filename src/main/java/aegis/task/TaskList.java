@@ -4,6 +4,7 @@ import aegis.exception.TaskInputException;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -58,5 +59,12 @@ public class TaskList {
 
     public int getSize() {
         return tasks.size();
+    }
+
+    public TaskList searchByName(String searchStr) {
+        ArrayList<Task> searchResults = new ArrayList<>(tasks.stream()
+                .filter(task -> task.getTaskName().contains(searchStr))
+                .toList());
+        return new TaskList(searchResults);
     }
 }

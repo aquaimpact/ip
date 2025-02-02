@@ -17,7 +17,7 @@ public class CommandParser {
      * Enum representing the types of commands supported by the application.
      */
     private enum CommandType {
-        LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT, DUEDATES
+        LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT, DUEDATES, FIND
     }
     /**
      * Determines the type of command based on the user's input
@@ -45,6 +45,8 @@ public class CommandParser {
             return CommandType.EVENT;
         } else if (input.matches(".*\\bduedates\\b.*")) {
             return CommandType.DUEDATES;
+        } else if (input.matches(".*\\bfind\\b.*")) {
+            return CommandType.FIND;
         } else {
             throw new CommandException(input);
         }
@@ -124,6 +126,10 @@ public class CommandParser {
         }
         case DUEDATES -> {
             return new DueDatesCommand();
+        }
+        case FIND -> {
+            String searchTerm = input.substring(4).trim();
+            return new FindCommand(searchTerm);
         }
         default -> {
             return null;
