@@ -2,6 +2,8 @@ package aegis.task;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import aegis.exception.TaskInputException;
 
@@ -128,5 +130,19 @@ public class TaskList {
      */
     public int getSize() {
         return tasks.size();
+    }
+
+    /**
+     * Searches for tasks that contain the given search string in their name.
+     * The search is case-insensitive, meaning "Meeting" and "meeting" will both match "meeting".
+     *
+     * @param searchStr The substring to search for in task names.
+     * @return A new {@code TaskList} containing tasks whose names include the search string.
+     */
+    public TaskList searchByName(String searchStr) {
+        ArrayList<Task> searchResults = new ArrayList<>(tasks.stream()
+                .filter(task -> task.getTaskName().toLowerCase().contains(searchStr.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new)));
+        return new TaskList(searchResults);
     }
 }
