@@ -24,7 +24,7 @@ public class DueDatesCommand implements Command {
      * @throws TaskInputException If an error occurs while processing the tasks.
      */
     @Override
-    public void execute(TaskList tasks, FileSave fs) throws TaskInputException {
+    public String execute(TaskList tasks, FileSave fs) throws TaskInputException {
         String output = "Here are the upcoming due dates in your list:";
 
         int index = 1;
@@ -35,7 +35,7 @@ public class DueDatesCommand implements Command {
             output += ("\n" + index++ + "." + t.toString());
         }
 
-        UIManager.printBorders(output);
+        return UIManager.printBorders(output);
     }
 
     /**

@@ -21,10 +21,9 @@ public class ListCommand implements Command {
      * @throws TaskInputException This command does not throw exceptions.
      */
     @Override
-    public void execute(TaskList tasks, FileSave fs) throws TaskInputException {
+    public String execute(TaskList tasks, FileSave fs) throws TaskInputException {
         if (tasks.getSize() == 0) {
-            UIManager.printBorders("Your task list is empty.");
-            return;
+            return UIManager.printBorders("Your task list is empty.");
         }
 
         StringBuilder output = new StringBuilder("Here are the tasks in your list:");
@@ -33,7 +32,7 @@ public class ListCommand implements Command {
             output.append("\n").append(i + 1).append(". ").append(task.toString());
         }
 
-        UIManager.printBorders(output.toString());
+        return UIManager.printBorders(output.toString());
     }
 
     /**

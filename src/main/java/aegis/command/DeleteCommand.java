@@ -35,7 +35,7 @@ public class DeleteCommand implements Command {
      * @throws IOException        If an error occurs while saving to the file.
      */
     @Override
-    public void execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
+    public String execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
         if (tasks.getSize() == 0) {
             throw new TaskInputException("No task available to delete!");
         }
@@ -43,7 +43,7 @@ public class DeleteCommand implements Command {
         // Deleting the task
         Task t = tasks.removeTask(index);
         fs.writeToFile(tasks);
-        UIManager.printBorders("Noted. I've removed this task:\n" + t
+        return UIManager.printBorders("Noted. I've removed this task:\n" + t
                 + "\nNow you have " + tasks.getSize() + " tasks in the list.");
     }
 

@@ -19,7 +19,7 @@ public interface Command {
      * @throws TaskInputException If there is an issue with task input.
      * @throws IOException        If an error occurs while accessing the file system.
      */
-    void execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException;
+    String execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException;
 
     /**
      * Determines whether executing this command will cause the application to exit.

@@ -36,21 +36,23 @@ public class MarkOrUnmarkCommand implements Command {
      * @throws IOException        If an error occurs while saving to the file.
      */
     @Override
-    public void execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
+    public String execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
         if (tasks.getSize() == 0) {
             throw new TaskInputException("No tasks available to modify!");
         }
 
         Task task;
+        String returnString;
         if (isMark) {
             task = tasks.markTaskAsDone(index);
-            UIManager.printBorders("Nice! I've marked this task as done:\n" + task);
+            returnString = UIManager.printBorders("Nice! I've marked this task as done:\n" + task);
         } else {
             task = tasks.markTaskAsUndone(index);
-            UIManager.printBorders("OK, I've marked this task as not done yet:\n" + task);
+            returnString = UIManager.printBorders("OK, I've marked this task as not done yet:\n" + task);
         }
 
         fs.writeToFile(tasks);
+        return returnString;
     }
 
     /**

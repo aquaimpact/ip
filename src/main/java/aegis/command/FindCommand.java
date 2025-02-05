@@ -35,7 +35,7 @@ public class FindCommand implements Command {
      * @throws IOException If an error occurs while accessing storage.
      */
     @Override
-    public void execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
+    public String execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
         TaskList searchResults = tasks.searchByName(searchStr);
         String output = "Here are the matching tasks in your list:";
         for (int i = 1; i <= searchResults.getSize(); i++) {
@@ -43,7 +43,7 @@ public class FindCommand implements Command {
             output += ("\n" + i + "." + task.toString());
         }
         output += "\n" + searchResults.getSize() + " results returned.";
-        UIManager.printBorders(output);
+        return UIManager.printBorders(output);
     }
 
     /**
