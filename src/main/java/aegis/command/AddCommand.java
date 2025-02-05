@@ -34,10 +34,10 @@ public class AddCommand implements Command {
      * @throws IOException        If an error occurs while writing to the file.
      */
     @Override
-    public void execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
+    public String execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
         tasks.addTask(task);
         fs.writeToFile(tasks);
-        UIManager.printOnItemsAdd(task, tasks.getSize());
+        return UIManager.printOnItemsAdd(task, tasks.getSize());
     }
 
     /**

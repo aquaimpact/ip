@@ -27,8 +27,9 @@ public class UIManager {
     /**
      * Displays a quit message to the user, thanking them for using the application.
      */
-    public static void quitMessage() {
+    public static String quitMessage() {
         printBorders("Goodbye! Thanks for using! Hope to see you again soon!");
+        return "Goodbye! Thanks for using! Hope to see you again soon!";
     }
 
     /**
@@ -36,10 +37,11 @@ public class UIManager {
      *
      * @param msg The message to be printed out.
      */
-    public static void printBorders(String msg) {
+    public static String printBorders(String msg) {
         System.out.println("____________________________________________________________");
         System.out.println(msg);
         System.out.println("____________________________________________________________\n");
+        return msg;
     }
 
     /**
@@ -49,8 +51,10 @@ public class UIManager {
      * @param task The task that was added.
      * @param newArraySize The new size of the task list after the task was added.
      */
-    public static void printOnItemsAdd(Task task, int newArraySize) {
+    public static String printOnItemsAdd(Task task, int newArraySize) {
         printBorders("Got it. I've added this task:\n"
                 + task + "\nNow you have " + newArraySize + " tasks in the list.");
+        return "Got it. I've added this task:\n"
+                + task + "\nNow you have " + newArraySize + " tasks in the list.";
     }
 }

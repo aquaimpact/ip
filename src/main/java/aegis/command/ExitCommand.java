@@ -20,8 +20,8 @@ public class ExitCommand implements Command {
      * @throws TaskInputException This command does not throw exceptions.
      */
     @Override
-    public void execute(TaskList tasks, FileSave fs) throws TaskInputException {
-        UIManager.quitMessage();
+    public String execute(TaskList tasks, FileSave fs) throws TaskInputException {
+        return UIManager.quitMessage();
     }
 
     /**
