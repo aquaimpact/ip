@@ -50,6 +50,7 @@ public class UIManager {
      * @param newArraySize The new size of the task list after the task was added.
      */
     public static void printOnItemsAdd(Task task, int newArraySize) {
-        printBorders("Got it. I've added this task:\n" + task + "\nNow you have " + newArraySize + " tasks in the list.");
+        printBorders("Got it. I've added this task:\n"
+                + task + "\nNow you have " + newArraySize + " tasks in the list.");
     }
 }
