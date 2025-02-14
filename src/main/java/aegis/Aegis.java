@@ -55,7 +55,11 @@ public class Aegis {
     }
 
     /**
-     * Generates a response for the user's chat message.
+     * Processes the user input, parses it into a command, executes the command,
+     * and returns the corresponding response from the chatbot.
+     *
+     * @param input The user's chat input.
+     * @return The chatbot's response based on the executed command.
      */
     public String getResponse(String input) {
         try {
