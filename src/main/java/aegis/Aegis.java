@@ -31,6 +31,7 @@ public class Aegis {
      * @param filePath The path to the file where tasks are saved.
      */
     public Aegis(String filePath) {
+        assert filePath != null && !filePath.trim().isEmpty() : "File path must not be null or empty";
         fs = new FileSave(filePath);
         try {
             tasks = new TaskList(fs.loadTasks());
@@ -64,7 +65,14 @@ public class Aegis {
     public String getResponse(String input) {
         try {
             Command c = CommandParser.parse(input);
+
+            // Ensure the parsed command is not null
+            assert c != null : "CommandParser returned a null command";
+
             String result = c.execute(tasks, fs);
+
+            // Ensure the execution result is not null
+            assert result != null : "Command execution returned null";
             return result;
         } catch (TaskInputException | CommandException e) {
             return UIManager.printBorders(e.toString());

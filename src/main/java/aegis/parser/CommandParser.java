@@ -73,8 +73,11 @@ public class CommandParser {
      * @throws TaskInputException If the command input is invalid or incomplete.
      */
     public static Command parse(String input) throws TaskInputException, DateTimeParseException, CommandException {
+        assert input != null : "Input command cannot be null";
+
         String[] inputArray = input.split(" ");
         CommandType commandType = determineCommandType(input);
+        assert commandType != null : "CommandType cannot be null";
 
         switch (commandType) {
         case BYE:
@@ -84,18 +87,21 @@ public class CommandParser {
             return new ListCommand();
 
         case MARK:
+            assert inputArray.length > 1 : "MARK command must have a task index";
             if (inputArray.length == 1) {
                 throw new TaskInputException("You did not specify which task to mark done!");
             }
             return new MarkOrUnmarkCommand(true, Integer.parseInt(inputArray[1]) - 1);
 
         case UNMARK:
+            assert inputArray.length > 1 : "UNMARK command must have a task index";
             if (inputArray.length == 1) {
                 throw new TaskInputException("You did not specify which task to unmark!");
             }
             return new MarkOrUnmarkCommand(false, Integer.parseInt(inputArray[1]) - 1);
 
         case DELETE:
+            assert inputArray.length > 1 : "DELETE command must have a task index";
             if (inputArray.length == 1) {
                 throw new TaskInputException("You did not specify which task to delete!");
             }
@@ -105,8 +111,10 @@ public class CommandParser {
             String todoDescription = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
             Task todoItem = new Todo(todoDescription);
             return new AddCommand(todoItem);
+
         case DEADLINE:
             String[] deadlineParts = input.split(" /by ");
+            assert deadlineParts.length >= 2 : "DEADLINE command must have a description and a due date";
             if (deadlineParts.length < 2) {
                 throw new TaskInputException("You did not specify a by date!");
             }
@@ -117,6 +125,7 @@ public class CommandParser {
 
         case EVENT:
             String[] eventParts = input.split(" /from | /to ");
+            assert eventParts.length >= 3 : "EVENT command must have a description, from date, and to date";
             if (eventParts.length < 3) {
                 throw new TaskInputException("You did not specify a from or to date!");
             }
@@ -132,6 +141,7 @@ public class CommandParser {
         case FIND:
             String searchTerm = input.substring(4).trim();
             return new FindCommand(searchTerm);
+
         default:
             throw new CommandException("Unrecognized command: " + input);
         }
