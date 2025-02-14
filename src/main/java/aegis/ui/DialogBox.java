@@ -14,6 +14,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * Represents a dialog box used in the UI for displaying messages.
+ * The dialog box consists of a text label and an image, which can be flipped
+ * to align the image and text differently for different types of messages.
+ */
 public class DialogBox extends HBox {
 
     @FXML
@@ -49,6 +54,14 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a dialog box for Aegis chatbot messages with the given text and image.
+     * This dialog box is flipped to differentiate it from user messages.
+     *
+     * @param text The chatbot's message text.
+     * @param img  The chatbot's display picture.
+     * @return A DialogBox displaying the chatbot's message.
+     */
     public static DialogBox getAegisDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

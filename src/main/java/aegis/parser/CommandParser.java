@@ -74,9 +74,9 @@ public class CommandParser {
      */
     public static Command parse(String input) throws TaskInputException, DateTimeParseException, CommandException {
         String[] inputArray = input.split(" ");
-        CommandType ct = determineCommandType(input);
+        CommandType commandType = determineCommandType(input);
 
-        switch (ct) {
+        switch (commandType) {
         case BYE:
             return new ExitCommand();
 
