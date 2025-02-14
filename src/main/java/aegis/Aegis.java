@@ -11,20 +11,7 @@ import aegis.exception.TaskInputException;
 import aegis.parser.CommandParser;
 import aegis.storage.FileSave;
 import aegis.task.TaskList;
-import aegis.ui.DialogBox;
-import aegis.ui.MainWindow;
 import aegis.ui.UIManager;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * The Aegis class represents the task management chatbot in the Aegis system.
@@ -44,6 +31,7 @@ public class Aegis {
      * @param filePath The path to the file where tasks are saved.
      */
     public Aegis(String filePath) {
+        assert filePath != null && !filePath.trim().isEmpty() : "File path must not be null or empty";
         fs = new FileSave(filePath);
         try {
             tasks = new TaskList(fs.loadTasks());
@@ -67,54 +55,20 @@ public class Aegis {
         this("./save.txt");
     }
 
-//    /**
-//     * Runs the chatbot, handling user input, parsing commands, and executing tasks.
-//     * The chatbot will continue to run until the exit command is triggered.
-//     */
-//    public void run() {
-//        Scanner sc = new Scanner(System.in);
-//        String input;
-//
-//        // Printing the logo and welcome message
-//        UIManager.welcomeMessage();
-//
-//        boolean isExit = false;
-//        while (!isExit) {
-//            input = sc.nextLine();
-//            try {
-//                Command c = CommandParser.parse(input);
-//                c.execute(tasks, fs);
-//                isExit = c.isExit();
-//            } catch (TaskInputException | CommandException e) {
-//                UIManager.printBorders(e.toString());
-//            } catch (IOException e) {
-//                UIManager.printBorders(e.getMessage());
-//            } catch (DateTimeParseException e) {
-//                UIManager.printBorders(e.getMessage() + "\nPossible Fixes:"
-//                        + "\nYou may need to change the date. E.g. 2/12/2019 1800");
-//            }
-//        }
-//        sc.close();
-//    }
-
-//    /**
-//     * The main method that starts the Aegis chatbot. It creates an Aegis object
-//     * with a specified file path and runs the chatbot.
-//     *
-//     * @param args Command line arguments (not used).
-//     */
-//    public static void main(String[] args) {
-//        new Aegis("./save.txt").run();
-//    }
-
     /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
         try {
             Command c = CommandParser.parse(input);
+            assert false;
+            // Ensure the parsed command is not null
+            assert c != null : "CommandParser returned a null command";
+
             String result = c.execute(tasks, fs);
-            boolean isExit = c.isExit();
+
+            // Ensure the execution result is not null
+            assert result != null : "Command execution returned null";
             return result;
         } catch (TaskInputException | CommandException e) {
             return UIManager.printBorders(e.toString());
