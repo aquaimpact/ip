@@ -92,36 +92,36 @@ public class FileSave {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
 
-        ArrayList<Task> arr = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         while (s.hasNext()) {
-            String[] taskData = s.nextLine().split("\\|\\|");
+            String[] taskInputs = s.nextLine().split("\\|\\|");
 
-            if (taskData.length == 1) {
+            if (taskInputs.length == 1) {
                 throw new FileSavingException("Cannot load task! Possibly wrong file format?");
             }
 
             Task t;
-            if (taskData[0].equals("T")) {
-                t = new Todo(taskData[2]);
-            } else if (taskData[0].equals("D")) {
-                t = new Deadline(taskData[2], taskData[3]);
-            } else if (taskData[0].equals("E")) {
-                t = new Event(taskData[2], taskData[3], taskData[4]);
+            if (taskInputs[0].equals("T")) {
+                t = new Todo(taskInputs[2]);
+            } else if (taskInputs[0].equals("D")) {
+                t = new Deadline(taskInputs[2], taskInputs[3]);
+            } else if (taskInputs[0].equals("E")) {
+                t = new Event(taskInputs[2], taskInputs[3], taskInputs[4]);
             } else {
-                throw new FileSavingException("aegis.task.Task of type: " + taskData[0] + " cannot be found!");
+                throw new FileSavingException("aegis.task.Task of type: " + taskInputs[0] + " cannot be found!");
             }
 
-            int isMarked = Integer.parseInt(taskData[1]);
+            int isMarked = Integer.parseInt(taskInputs[1]);
             if (isMarked == 1) {
                 t.markAsDone();
             } else {
                 t.markAsUndone();
             }
 
-            arr.add(t);
+            tasks.add(t);
         }
 
-        return arr;
+        return tasks;
     }
 }

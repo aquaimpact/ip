@@ -76,11 +76,10 @@ public class CommandParser {
         assert input != null : "Input command cannot be null";
 
         String[] inputArray = input.split(" ");
-        CommandType ct = determineCommandType(input);
+        CommandType commandType = determineCommandType(input);
+        assert commandType != null : "CommandType cannot be null";
 
-        assert ct != null : "CommandType cannot be null";
-
-        switch (ct) {
+        switch (commandType) {
         case BYE:
             return new ExitCommand();
 
