@@ -144,4 +144,14 @@ public class TaskList {
                 .collect(Collectors.toCollection(ArrayList::new)));
         return new TaskList(searchResults);
     }
+
+    /**
+     * Checks if the given task already exists in the task list.
+     *
+     * @param task The task to check for existence.
+     * @return {@code true} if the task exists in the list, {@code false} otherwise.
+     */
+    public boolean checkIfExists(Task task) {
+        return tasks.stream().anyMatch(t -> t.equals(task));
+    }
 }

@@ -39,4 +39,9 @@ public class Todo extends Task {
     public String toCsv() {
         return "T||" + super.toCsv();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof Todo) && super.equals(obj);
+    }
 }
