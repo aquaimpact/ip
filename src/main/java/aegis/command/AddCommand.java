@@ -35,6 +35,9 @@ public class AddCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
+        if (tasks.checkIfExists(task)) {
+            return UIManager.printDuplicateWarning(task);
+        }
         tasks.addTask(task);
         fs.writeToFile(tasks);
         return UIManager.printOnItemsAdd(task, tasks.getSize());

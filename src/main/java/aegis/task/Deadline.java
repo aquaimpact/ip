@@ -67,4 +67,15 @@ public class Deadline extends Task implements Comparable<Task> {
         }
         return 0;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        return (obj instanceof Deadline other)
+                && super.equals(obj)
+                && other.by.equals(this.by);
+    }
 }

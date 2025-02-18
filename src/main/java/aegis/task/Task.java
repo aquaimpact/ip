@@ -91,4 +91,14 @@ public class Task implements Comparable<Task> {
     public int compareTo(Task o) {
         return -1;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        return (obj instanceof Task other)
+                && other.taskName.equals(this.taskName);
+    }
 }

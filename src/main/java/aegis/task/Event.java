@@ -72,4 +72,16 @@ public class Event extends Task implements Comparable<Task> {
         }
         return 0;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        return (obj instanceof Event other)
+                && super.equals(obj)
+                && other.from.equals(this.from)
+                && other.to.equals(this.to);
+    }
 }

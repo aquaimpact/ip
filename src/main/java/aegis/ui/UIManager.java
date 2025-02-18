@@ -57,4 +57,17 @@ public class UIManager {
         return "Got it. I've added this task:\n"
                 + task + "\nNow you have " + newArraySize + " tasks in the list.";
     }
+
+    /**
+     * Prints and returns a warning message when a duplicate task is detected.
+     *
+     * @param task The task that was added.
+     * @return A warning message indicating that the task is a duplicate.
+     */
+    public static String printDuplicateWarning(Task task) {
+        printBorders("Warning! the task you have entered: \n"
+                + task + "\n" + "has been added previously!");
+        return "Warning! the task you have entered: \n"
+                + task + "\n" + "has been added previously!";
+    }
 }
