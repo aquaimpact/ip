@@ -107,7 +107,7 @@ Here are the upcoming due dates in your list:
 
 ## 🚀 Installation
 
-1. **Download the latest Aegis JAR file** [here](https://github.com/aquaimpact/ip/releases/tag/A-Jar)
+1. **Download the latest Aegis JAR file** [here](https://github.com/aquaimpact/ip/releases)
 2. **Place it in a folder of your choice**
 3. **Run it with the following command:**  `java -jar aegis.jar`
 4. Start managing your tasks efficiently! 🎯
