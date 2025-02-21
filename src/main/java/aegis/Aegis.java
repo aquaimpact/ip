@@ -1,5 +1,6 @@
 package aegis;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
@@ -33,6 +34,7 @@ public class Aegis {
     public Aegis(String filePath) {
         assert filePath != null && !filePath.trim().isEmpty() : "File path must not be null or empty";
         fs = new FileSave(filePath);
+
         try {
             tasks = new TaskList(fs.loadTasks());
             UiManager.printBorders("Save file found! Reusing it...");
@@ -40,19 +42,16 @@ public class Aegis {
             UiManager.printBorders(e.toString());
         } catch (FileNotFoundException e) {
             String createNewIndicator = "Save file not found... Creating a new file...";
-            try {
-                fs.writeToFile("");
-            } catch (IOException io) {
-                UiManager.printBorders(io.toString());
-            }
             tasks = new TaskList();
             UiManager.printBorders(createNewIndicator);
+        } catch (IOException e) {
+            UiManager.printBorders(e.getMessage());
         }
     }
 
     // Overloaded constructor
     public Aegis() {
-        this("./save.txt");
+        this("./data/AegisSave.txt");
     }
 
     /**

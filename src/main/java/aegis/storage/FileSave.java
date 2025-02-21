@@ -88,8 +88,15 @@ public class FileSave {
      * @throws FileSavingException If the file format is incorrect or the task type cannot be identified.
      * @throws DateTimeParseException If a date field is incorrectly formatted.
      */
-    public ArrayList<Task> loadTasks() throws FileNotFoundException, TaskInputException, FileSavingException, DateTimeParseException {
+    public ArrayList<Task> loadTasks() throws IOException, TaskInputException, FileSavingException, DateTimeParseException {
         File f = new File(filePath);
+        if (!f.exists()) {
+            File dir = new File("data");
+            dir.mkdirs();
+            f = new File(dir, "AegisSave.txt");
+            f.createNewFile();
+        }
+
         Scanner s = new Scanner(f);
 
         ArrayList<Task> tasks = new ArrayList<>();
