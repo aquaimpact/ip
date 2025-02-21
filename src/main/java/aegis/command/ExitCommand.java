@@ -21,6 +21,7 @@ public class ExitCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, FileSave fs) throws TaskInputException {
+        System.exit(0);
         return UiManager.quitMessage();
     }
 
