@@ -33,6 +33,30 @@ public class Event extends Task implements Comparable<Task> {
     }
 
     /**
+     * Parses the input string to create an {@code Event} task.
+     * <p>
+     * The method expects the input to be formatted as:
+     * {@code "event <description> /from <start date> /to <end date>"}.
+     * It extracts the description, start date, and end date, then creates an {@code Event} object.
+     * </p>
+     *
+     * @param input The raw user input containing the event description, start date, and end date.
+     * @return An {@code Event} object with the extracted description, start date, and end date.
+     * @throws TaskInputException If the input does not contain both "/from" and "/to" separators.
+     */
+    public static Event formatEvent(String input) throws TaskInputException {
+        String[] eventParts = input.split(" /from | /to ");
+        assert eventParts.length >= 3 : "EVENT command must have a description, from date, and to date";
+        if (eventParts.length < 3) {
+            throw new TaskInputException("You did not specify a from or to date!");
+        }
+        String eventDescription = eventParts[0].substring(5).trim();
+        String eventFrom = eventParts[1].trim();
+        String eventTo = eventParts[2].trim();
+        return new Event(eventDescription, eventFrom, eventTo);
+    }
+
+    /**
      * Returns the string representation of the event task.
      * The format includes the task type, task name, start time, and end time.
      *

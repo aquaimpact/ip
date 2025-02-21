@@ -9,6 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * A GUI for Aegis using FXML.
+ */
 public class Main extends Application {
 
     private Aegis aegis = new Aegis();
@@ -20,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setAegis(aegis); // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setAegis(aegis); // inject the Aegis instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

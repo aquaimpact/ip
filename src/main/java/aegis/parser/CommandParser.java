@@ -113,26 +113,11 @@ public class CommandParser {
             return new AddCommand(todoItem);
 
         case DEADLINE:
-            String[] deadlineParts = input.split(" /by ");
-            assert deadlineParts.length >= 2 : "DEADLINE command must have a description and a due date";
-            if (deadlineParts.length < 2) {
-                throw new TaskInputException("You did not specify a by date!");
-            }
-            String deadlineDescription = deadlineParts[0].substring(8).trim();
-            String deadlineDate = deadlineParts[1].trim();
-            Task deadlineItem = new Deadline(deadlineDescription, deadlineDate);
+            Task deadlineItem = Deadline.formatDeadline(input);
             return new AddCommand(deadlineItem);
 
         case EVENT:
-            String[] eventParts = input.split(" /from | /to ");
-            assert eventParts.length >= 3 : "EVENT command must have a description, from date, and to date";
-            if (eventParts.length < 3) {
-                throw new TaskInputException("You did not specify a from or to date!");
-            }
-            String eventDescription = eventParts[0].substring(5).trim();
-            String eventFrom = eventParts[1].trim();
-            String eventTo = eventParts[2].trim();
-            Task eventItem = new Event(eventDescription, eventFrom, eventTo);
+            Task eventItem = Event.formatEvent(input);
             return new AddCommand(eventItem);
 
         case DUEDATES:

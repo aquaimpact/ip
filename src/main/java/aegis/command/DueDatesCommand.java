@@ -5,7 +5,7 @@ import aegis.storage.FileSave;
 import aegis.task.Task;
 import aegis.task.TaskList;
 import aegis.task.Todo;
-import aegis.ui.UIManager;
+import aegis.ui.UiManager;
 
 /**
  * Represents a command that lists all tasks with due dates in ascending order.
@@ -35,7 +35,7 @@ public class DueDatesCommand implements Command {
             output += ("\n" + index++ + "." + t.toString());
         }
 
-        return UIManager.printBorders(output);
+        return UiManager.printBorders(output);
     }
 
     /**

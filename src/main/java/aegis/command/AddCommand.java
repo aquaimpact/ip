@@ -6,7 +6,7 @@ import aegis.exception.TaskInputException;
 import aegis.storage.FileSave;
 import aegis.task.Task;
 import aegis.task.TaskList;
-import aegis.ui.UIManager;
+import aegis.ui.UiManager;
 
 /**
  * Represents a command to add a task to the task list.
@@ -36,11 +36,11 @@ public class AddCommand implements Command {
     @Override
     public String execute(TaskList tasks, FileSave fs) throws TaskInputException, IOException {
         if (tasks.checkIfExists(task)) {
-            return UIManager.printDuplicateWarning(task);
+            return UiManager.printDuplicateWarning(task);
         }
         tasks.addTask(task);
         fs.writeToFile(tasks);
-        return UIManager.printOnItemsAdd(task, tasks.getSize());
+        return UiManager.printOnItemsAdd(task, tasks.getSize());
     }
 
     /**

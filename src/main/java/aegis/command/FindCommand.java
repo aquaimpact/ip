@@ -6,7 +6,7 @@ import aegis.exception.TaskInputException;
 import aegis.storage.FileSave;
 import aegis.task.Task;
 import aegis.task.TaskList;
-import aegis.ui.UIManager;
+import aegis.ui.UiManager;
 
 /**
  * Represents a command to search for tasks containing a specific keyword.
@@ -43,7 +43,7 @@ public class FindCommand implements Command {
             output += ("\n" + i + "." + task.toString());
         }
         output += "\n" + searchResults.getSize() + " results returned.";
-        return UIManager.printBorders(output);
+        return UiManager.printBorders(output);
     }
 
     /**

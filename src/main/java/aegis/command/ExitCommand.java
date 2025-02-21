@@ -3,7 +3,7 @@ package aegis.command;
 import aegis.exception.TaskInputException;
 import aegis.storage.FileSave;
 import aegis.task.TaskList;
-import aegis.ui.UIManager;
+import aegis.ui.UiManager;
 
 /**
  * Represents a command that terminates the application gracefully.
@@ -21,7 +21,7 @@ public class ExitCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, FileSave fs) throws TaskInputException {
-        return UIManager.quitMessage();
+        return UiManager.quitMessage();
     }
 
     /**

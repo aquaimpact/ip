@@ -51,17 +51,6 @@ public class Task implements Comparable<Task> {
     }
 
     /**
-     * Returns the string representation of the task.
-     * The format includes the status icon and the task name.
-     *
-     * @return A string representation of the task.
-     */
-    @Override
-    public String toString() {
-        return "[" + getStatusIcon() + "] " + taskName;
-    }
-
-    /**
      * Converts the task to a CSV-compatible string format.
      * The format includes the completion status and the task name.
      *
@@ -78,6 +67,17 @@ public class Task implements Comparable<Task> {
      */
     public String getTaskName() {
         return this.taskName;
+    }
+
+    /**
+     * Returns the string representation of the task.
+     * The format includes the status icon and the task name.
+     *
+     * @return A string representation of the task.
+     */
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + taskName;
     }
 
     /**

@@ -6,7 +6,7 @@ import aegis.exception.TaskInputException;
 import aegis.storage.FileSave;
 import aegis.task.Task;
 import aegis.task.TaskList;
-import aegis.ui.UIManager;
+import aegis.ui.UiManager;
 
 /**
  * Represents a command that either marks or unmarks a task as done.
@@ -45,10 +45,10 @@ public class MarkOrUnmarkCommand implements Command {
         String returnString;
         if (isMark) {
             task = tasks.markTaskAsDone(index);
-            returnString = UIManager.printBorders("Nice! I've marked this task as done:\n" + task);
+            returnString = UiManager.printBorders("Nice! I've marked this task as done:\n" + task);
         } else {
             task = tasks.markTaskAsUndone(index);
-            returnString = UIManager.printBorders("OK, I've marked this task as not done yet:\n" + task);
+            returnString = UiManager.printBorders("OK, I've marked this task as not done yet:\n" + task);
         }
 
         fs.writeToFile(tasks);

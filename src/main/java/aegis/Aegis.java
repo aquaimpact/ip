@@ -11,7 +11,7 @@ import aegis.exception.TaskInputException;
 import aegis.parser.CommandParser;
 import aegis.storage.FileSave;
 import aegis.task.TaskList;
-import aegis.ui.UIManager;
+import aegis.ui.UiManager;
 
 /**
  * The Aegis class represents the task management chatbot in the Aegis system.
@@ -35,18 +35,18 @@ public class Aegis {
         fs = new FileSave(filePath);
         try {
             tasks = new TaskList(fs.loadTasks());
-            UIManager.printBorders("Save file found! Reusing it...");
+            UiManager.printBorders("Save file found! Reusing it...");
         } catch (TaskInputException | FileSavingException e) {
-            UIManager.printBorders(e.toString());
+            UiManager.printBorders(e.toString());
         } catch (FileNotFoundException e) {
             String createNewIndicator = "Save file not found... Creating a new file...";
             try {
                 fs.writeToFile("");
             } catch (IOException io) {
-                UIManager.printBorders(io.toString());
+                UiManager.printBorders(io.toString());
             }
             tasks = new TaskList();
-            UIManager.printBorders(createNewIndicator);
+            UiManager.printBorders(createNewIndicator);
         }
     }
 
@@ -75,12 +75,12 @@ public class Aegis {
             assert result != null : "Command execution returned null";
             return result;
         } catch (TaskInputException | CommandException e) {
-            return UIManager.printBorders(e.toString());
+            return UiManager.printBorders(e.toString());
         } catch (IOException e) {
-            return UIManager.printBorders(e.getMessage());
+            return UiManager.printBorders(e.getMessage());
 
         } catch (DateTimeParseException e) {
-            return UIManager.printBorders(e.getMessage() + "\nPossible Fixes:"
+            return UiManager.printBorders(e.getMessage() + "\nPossible Fixes:"
                     + "\nYou may need to change the date. E.g. 2/12/2019 1800");
         }
     }

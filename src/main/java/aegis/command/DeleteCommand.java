@@ -6,7 +6,7 @@ import aegis.exception.TaskInputException;
 import aegis.storage.FileSave;
 import aegis.task.Task;
 import aegis.task.TaskList;
-import aegis.ui.UIManager;
+import aegis.ui.UiManager;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -43,7 +43,7 @@ public class DeleteCommand implements Command {
         // Deleting the task
         Task t = tasks.removeTask(index);
         fs.writeToFile(tasks);
-        return UIManager.printBorders("Noted. I've removed this task:\n" + t
+        return UiManager.printBorders("Noted. I've removed this task:\n" + t
                 + "\nNow you have " + tasks.getSize() + " tasks in the list.");
     }
 

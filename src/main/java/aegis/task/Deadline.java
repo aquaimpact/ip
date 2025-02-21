@@ -29,6 +29,29 @@ public class Deadline extends Task implements Comparable<Task> {
     }
 
     /**
+     * Parses the input string to create a {@code Deadline} task.
+     * <p>
+     * The method expects the input to be formatted as:
+     * {@code "deadline <task description> /by <due date>"}. It extracts the task description and due date,
+     * then creates a {@code Deadline} object.
+     * </p>
+     *
+     * @param input The raw user input containing the deadline description and due date.
+     * @return A {@code Deadline} object with the extracted description and due date.
+     * @throws TaskInputException If the input does not contain a valid "/by" separator.
+     */
+    public static Deadline formatDeadline(String input) throws TaskInputException {
+        String[] deadlineParts = input.split(" /by ");
+        assert deadlineParts.length >= 2 : "DEADLINE command must have a description and a due date";
+        if (deadlineParts.length < 2) {
+            throw new TaskInputException("You did not specify a by date!");
+        }
+        String deadlineDescription = deadlineParts[0].substring(8).trim();
+        String deadlineDate = deadlineParts[1].trim();
+        return new Deadline(deadlineDescription, deadlineDate);
+    }
+
+    /**
      * Returns the string representation of the deadline task.
      * The format includes the task type, task name, and the due date.
      *

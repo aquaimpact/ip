@@ -4,7 +4,7 @@ import aegis.exception.TaskInputException;
 import aegis.storage.FileSave;
 import aegis.task.Task;
 import aegis.task.TaskList;
-import aegis.ui.UIManager;
+import aegis.ui.UiManager;
 
 /**
  * Represents a command that displays all tasks in the task list.
@@ -23,7 +23,7 @@ public class ListCommand implements Command {
     @Override
     public String execute(TaskList tasks, FileSave fs) throws TaskInputException {
         if (tasks.getSize() == 0) {
-            return UIManager.printBorders("Your task list is empty.");
+            return UiManager.printBorders("Your task list is empty.");
         }
 
         StringBuilder output = new StringBuilder("Here are the tasks in your list:");
@@ -32,7 +32,7 @@ public class ListCommand implements Command {
             output.append("\n").append(i + 1).append(". ").append(task.toString());
         }
 
-        return UIManager.printBorders(output.toString());
+        return UiManager.printBorders(output.toString());
     }
 
     /**

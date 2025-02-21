@@ -4,9 +4,9 @@ import aegis.task.Task;
 
 /**
  * Represents the user interface manager for the aegis.Aegis chatbot.
- * The UIManager handles displaying messages, borders, and task-related outputs to the user.
+ * The UiManager handles displaying messages, borders, and task-related outputs to the user.
  */
-public class UIManager {
+public class UiManager {
 
     /**
      * Displays a welcome message to the user, including a logo and introductory message.
