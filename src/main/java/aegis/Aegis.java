@@ -78,7 +78,6 @@ public class Aegis {
             return UiManager.printBorders(e.toString());
         } catch (IOException e) {
             return UiManager.printBorders(e.getMessage());
-
         } catch (DateTimeParseException e) {
             return UiManager.printBorders(e.getMessage() + "\nPossible Fixes:"
                     + "\nYou may need to change the date. E.g. 2/12/2019 1800");

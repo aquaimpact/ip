@@ -16,7 +16,6 @@ public class Event extends Task implements Comparable<Task> {
     private DateTimeFormatter showFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
     private LocalDateTime from;
     private LocalDateTime to;
-
     /**
      * Constructs an Event object with the specified task name, start time, and end time.
      *
@@ -30,6 +29,10 @@ public class Event extends Task implements Comparable<Task> {
         super(taskName);
         this.from = LocalDateTime.parse(from, storeFormatter);
         this.to = LocalDateTime.parse(to, storeFormatter);
+    }
+
+    public LocalDateTime getTo() {
+        return to;
     }
 
     /**
@@ -90,9 +93,9 @@ public class Event extends Task implements Comparable<Task> {
     @Override
     public int compareTo(Task o) {
         if (o instanceof Event) {
-            return ((Event) o).to.compareTo(this.to);
+            return this.to.compareTo(((Event) o).to);
         } else if (o instanceof Deadline) {
-            return o.compareTo(this);
+            return this.to.compareTo(((Deadline) o).getBy()); // Compare event end date with deadline date
         }
         return 0;
     }

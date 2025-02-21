@@ -28,6 +28,10 @@ public class Deadline extends Task implements Comparable<Task> {
         this.by = LocalDateTime.parse(by, storeFormatter);
     }
 
+    public LocalDateTime getBy() {
+        return by;
+    }
+
     /**
      * Parses the input string to create a {@code Deadline} task.
      * <p>
@@ -84,9 +88,9 @@ public class Deadline extends Task implements Comparable<Task> {
     @Override
     public int compareTo(Task o) {
         if (o instanceof Deadline) {
-            return ((Deadline) o).by.compareTo(this.by);
+            return this.by.compareTo(((Deadline) o).getBy());
         } else if (o instanceof Event) {
-            return o.compareTo(this);
+            return this.by.compareTo(((Event) o).getTo()); // Compare deadline date with event end date
         }
         return 0;
     }
