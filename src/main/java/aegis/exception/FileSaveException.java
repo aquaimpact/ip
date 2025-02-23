@@ -3,14 +3,14 @@ package aegis.exception;
 /**
  * Represents an exception that occurs during file-saving operations.
  */
-public class FileSavingException extends AegisException {
+public class FileSaveException extends AegisException {
 
     /**
-     * Constructs a new {@code FileSavingException} with the specified error message.
+     * Constructs a new {@code FileSaveException} with the specified error message.
      *
      * @param message The detail message explaining the cause of the error.
      */
-    public FileSavingException(String message) {
+    public FileSaveException(String message) {
         super(message);
     }
 

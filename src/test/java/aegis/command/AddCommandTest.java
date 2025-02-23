@@ -10,7 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import aegis.exception.FileSavingException;
+import aegis.exception.FileSaveException;
 import aegis.exception.TaskInputException;
 import aegis.storage.FileSave;
 import aegis.task.Task;
@@ -69,7 +69,7 @@ public class AddCommandTest {
         TaskList loadedTasks = null;
         try {
             loadedTasks = new TaskList(fileSave.loadTasks());
-        } catch (FileSavingException e) {
+        } catch (FileSaveException e) {
             throw new RuntimeException(e);
         }
         assertEquals(1, loadedTasks.getSize());

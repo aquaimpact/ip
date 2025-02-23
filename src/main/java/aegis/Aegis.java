@@ -1,13 +1,12 @@
 package aegis;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 import aegis.command.Command;
 import aegis.exception.CommandException;
-import aegis.exception.FileSavingException;
+import aegis.exception.FileSaveException;
 import aegis.exception.TaskInputException;
 import aegis.parser.CommandParser;
 import aegis.storage.FileSave;
@@ -38,7 +37,7 @@ public class Aegis {
         try {
             tasks = new TaskList(fs.loadTasks());
             UiManager.printBorders("Save file found! Reusing it...");
-        } catch (TaskInputException | FileSavingException e) {
+        } catch (TaskInputException | FileSaveException e) {
             UiManager.printBorders(e.toString());
         } catch (FileNotFoundException e) {
             String createNewIndicator = "Save file not found... Creating a new file...";

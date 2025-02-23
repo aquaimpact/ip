@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import aegis.exception.FileSavingException;
+import aegis.exception.FileSaveException;
 import aegis.exception.TaskInputException;
 import aegis.task.Deadline;
 import aegis.task.Event;
@@ -35,18 +35,6 @@ public class FileSave {
     }
 
     /**
-     * Writes the provided text to the file specified by the filePath.
-     *
-     * @param text The text to write to the file.
-     * @throws IOException If an I/O error occurs during writing.
-     */
-    public void writeToFile(String text) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(text);
-        fw.close();
-    }
-
-    /**
      * Writes the task list to the file specified by the filePath in CSV format.
      * Each task is represented by its CSV string format.
      *
@@ -64,31 +52,16 @@ public class FileSave {
     }
 
     /**
-     * Appends the provided text to the file specified by the given file path.
-     *
-     * @param filepath The path of the file to append the text to.
-     * @param text The text to append to the file.
-     * @return True if the text was successfully appended, false otherwise.
-     * @throws IOException If an I/O error occurs during writing.
-     */
-    public boolean appendToFile(String filepath, String text) throws IOException {
-        FileWriter fw = new FileWriter(filepath, true);
-        fw.write(text);
-        fw.close();
-        return true;
-    }
-
-    /**
      * Loads tasks from the file specified by the file path.
      * Each task is parsed from its CSV representation in the file.
      *
      * @return An ArrayList of Task objects loaded from the file.
      * @throws FileNotFoundException If the file does not exist.
      * @throws TaskInputException If there is an issue with the task input format.
-     * @throws FileSavingException If the file format is incorrect or the task type cannot be identified.
+     * @throws FileSaveException If the file format is incorrect or the task type cannot be identified.
      * @throws DateTimeParseException If a date field is incorrectly formatted.
      */
-    public ArrayList<Task> loadTasks() throws IOException, TaskInputException, FileSavingException, DateTimeParseException {
+    public ArrayList<Task> loadTasks() throws IOException, TaskInputException, FileSaveException, DateTimeParseException {
         File f = new File(filePath);
         if (!f.exists()) {
             File dir = new File("data");
@@ -105,7 +78,7 @@ public class FileSave {
             String[] taskInputs = s.nextLine().split("\\|\\|");
 
             if (taskInputs.length == 1) {
-                throw new FileSavingException("Cannot load task! Possibly wrong file format?");
+                throw new FileSaveException("Cannot load task! Possibly wrong file format?");
             }
 
             Task t;
@@ -116,7 +89,7 @@ public class FileSave {
             } else if (taskInputs[0].equals("E")) {
                 t = new Event(taskInputs[2], taskInputs[3], taskInputs[4]);
             } else {
-                throw new FileSavingException("aegis.task.Task of type: " + taskInputs[0] + " cannot be found!");
+                throw new FileSaveException("aegis.task.Task of type: " + taskInputs[0] + " cannot be found!");
             }
 
             int isMarked = Integer.parseInt(taskInputs[1]);
